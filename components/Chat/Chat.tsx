@@ -8,7 +8,7 @@ import {saveConversation, saveConversations, updateConversation} from '@/utils/a
 import {ChatBody, Conversation, Message} from '@/types/chat';
 import {Plugin} from '@/types/plugin';
 
-import IndexContext from '@/pages/api/home/index.context';
+import HomeContext from '@/pages/api/home/home.context';
 import {ChatInput} from './ChatInput';
 import {ChatLoader} from './ChatLoader';
 import Spinner from '../Spinner';
@@ -44,7 +44,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
             },
             handleUpdateConversation,
             dispatch: homeDispatch,
-        } = useContext(IndexContext);
+        } = useContext(HomeContext);
 
         const [currentMessage, setCurrentMessage] = useState<Message>();
         const [imageCount, setImageCount] = useState<number>(0);
