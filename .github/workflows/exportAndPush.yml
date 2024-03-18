@@ -41,6 +41,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
+          cd gaianet-node
           ls
           git config --local user.email "juyichen0413@foxmail.com"
           git config --global user.name "JYC0413"
