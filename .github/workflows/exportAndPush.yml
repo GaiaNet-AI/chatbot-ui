@@ -40,6 +40,20 @@ jobs:
         run: |
           cd gaianet-node
           cp -r ../out/* ./dashboard/chatbot-ui
+          cd ./dashboard/chatbot-ui
+          mv index.html chatbot-ui.html
+
+      - name: Create index.html
+        run: |
+          echo "<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta charset="UTF-8"><meta http-equiv="refresh" content="0; URL=/chatbot-ui"><title>Redirecting...</title></head><body><p>If you are not redirected automatically, follow <a href="/chatbot-ui">this link</a>.</p></body></html>" > index.html
+          echo "<head>" >> index.html
+          echo "  <meta charset="UTF-8">" >> index.html
+          echo "    <title>Hello, World!</title>" >> index.html
+          echo "  </head>" >> index.html
+          echo "  <body>" >> index.html
+          echo "    <h1>Hello, World!</h1>" >> index.html
+          echo "  </body>" >> index.html
+          echo "</html>" >> index.html
 
       - name: Commit changes
         env:
