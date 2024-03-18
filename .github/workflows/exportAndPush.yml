@@ -43,7 +43,7 @@ jobs:
           cd ./dashboard/chatbot-ui
           mkdir chatbot-ui
           mv index.html ./chatbot-ui/index.html
-          echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta charset="UTF-8"><meta http-equiv="refresh" content="0; URL=/chatbot-ui/index.html"><title>Redirecting...</title></head><body><p>If you are not redirected automatically, follow <a href="/chatbot-ui/index.html">this link</a>.</p></body></html>' > index.html
+          echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta charset="UTF-8"><meta http-equiv="refresh" content="0; URL=/chatbot-ui/index.html"><title>Redirecting...</title></head><body></body></html>' > index.html
 
       - name: Commit changes
         env:
