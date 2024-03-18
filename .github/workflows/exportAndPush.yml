@@ -19,6 +19,8 @@ jobs:
       statuses: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
@@ -40,9 +42,10 @@ jobs:
           cp -r ../out/* ./dashboard/chatbot-ui
 
       - name: Commit changes
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          git remote set-url --push origin https://JYC0413:$GITHUB_TOKEN@github.com/GaiaNet-AI/gaianet-node.git
           git config --local user.email "juyichen0413@foxmail.com"
           git config --global user.name "JYC0413"
           git add .
