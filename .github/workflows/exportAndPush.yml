@@ -32,7 +32,7 @@ jobs:
           yarn next export
 
       - name: Clone target repository
-        run: git clone https://github.com/GaiaNet-AI/gaianet-node.git
+        run: git clone https://JYC0413:0413Jyc!@github.com/GaiaNet-AI/gaianet-node.git
 
       - name: Copy build files
         run: |
@@ -42,8 +42,8 @@ jobs:
       - name: Commit and push changes
         run: |
           cd gaianet-node
-          git config --local user.email "juyichen0413@gmail.com"
-          git config --global user.name "GaiaNet worker"
+          git config --local user.email "juyichen0413@foxmail.com"
+          git config --global user.name "JYC0413"
           git add .
           git commit -m "Build and deploy chatbot-ui"
           git push
