@@ -42,8 +42,8 @@ jobs:
       - name: Commit and push changes
         run: |
           cd gaianet-node
-          git config --local user.email "juyichen0413@foxmail.com"
-          git config --global user.name "JYC0413 <juyichen0413@foxmail.com>"
+          git config --local user.email "juyichen0413@gmail.com"
+          git config --global user.name "GaiaNet worker"
           git add .
           git commit -m "Build and deploy chatbot-ui"
           git push
