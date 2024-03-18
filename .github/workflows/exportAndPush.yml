@@ -30,19 +30,13 @@ jobs:
         run: |
           yarn build
           yarn next export
-          mkdir gaianet-node
-          cd ./gaianet-node
-          pwd
 
       - name: Clone target repository
-        uses: actions/checkout@v4
-        with:
-          repository: GaiaNet-AI/gaianet-node
+        run: git clone https://github.com/GaiaNet-AI/gaianet-node.git
 
       - name: Copy build files
         run: |
-          pwd
-          ls ../../
+          cd gaianet-node
           cp -r ../out/* ./dashboard/chatbot-ui/
 
       - name: Commit and push changes
