@@ -41,7 +41,6 @@ jobs:
           cd gaianet-node
           cp -r ../out/* ./dashboard/chatbot-ui
           cd ./dashboard/chatbot-ui
-          mkdir chatbot-ui
           mv index.html ./chatbot-ui/index.html
           echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta charset="UTF-8"><meta http-equiv="refresh" content="0; URL=/chatbot-ui/index.html"><title>Redirecting...</title></head><body></body></html>' > index.html
 
