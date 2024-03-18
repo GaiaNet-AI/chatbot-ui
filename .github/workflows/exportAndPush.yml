@@ -37,6 +37,7 @@ jobs:
 
       - name: Copy build files
         run: |
+          cd ../
           ls
           cp -r ./out/* ./path/to/gaianet-node/dashboard/chatbot-ui/
 
