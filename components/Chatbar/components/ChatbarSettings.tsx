@@ -55,19 +55,19 @@ export const ChatbarSettings = () => {
             <SidebarButton
                 text="Follow us on twitter"
                 icon={<IconBrandTwitter size={18}/>}
-                onClick={() => window.open("https://twitter.com/realwasmedge","_blank")}
+                onClick={() => window.open("https://twitter.com/gaianet_ai","_blank")}
             />
 
             <SidebarButton
                 text="GitHub"
                 icon={<IconBrandGithub size={18}/>}
-                onClick={() => window.open("https://github.com/second-state/LlamaEdge","_blank")}
+                onClick={() => window.open("https://github.com/GaiaNet-AI","_blank")}
             />
 
             <SidebarButton
                 text="Huggingface"
                 icon={<IconRobot size={18}/>}
-                onClick={() => window.open("https://huggingface.co/second-state","_blank")}
+                onClick={() => window.open("https://huggingface.co/gaianet","_blank")}
             />
 
             <SidebarButton

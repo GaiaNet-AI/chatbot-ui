@@ -8,7 +8,7 @@ import {saveConversation, saveConversations, updateConversation} from '@/utils/a
 import {ChatBody, Conversation, Message} from '@/types/chat';
 import {Plugin} from '@/types/plugin';
 
-import HomeContext from '@/pages/api/home/home.context';
+import IndexContext from '@/pages/api/home/index.context';
 import {ChatInput} from './ChatInput';
 import {ChatLoader} from './ChatLoader';
 import Spinner from '../Spinner';
@@ -40,11 +40,11 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                 pluginKeys,
                 modelError,
                 loading,
-                prompts,
+                prompts
             },
             handleUpdateConversation,
             dispatch: homeDispatch,
-        } = useContext(HomeContext);
+        } = useContext(IndexContext);
 
         const [currentMessage, setCurrentMessage] = useState<Message>();
         const [imageCount, setImageCount] = useState<number>(0);
@@ -477,7 +477,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                                                     alignItems: "center",
                                                     justifyContent: "center"
                                                 }}>
-                                                    <img style={{height: "4rem"}} src="/llamaedge.svg"/>LlamaEdge Chat
+                                                    <img style={{height: "4rem",marginRight:"2rem"}} src={lightMode==="dark"?"/GaiaNet-white.svg":"/GaiaNet-black.svg"}/>GaiaNet-AI Chat
                                                 </div>
                                             )}
                                         </div>
