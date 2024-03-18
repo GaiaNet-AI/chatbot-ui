@@ -1,7 +1,7 @@
 name: Release
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -30,6 +30,9 @@ jobs:
         run: |
           yarn build
           yarn next export
+          mkdir gaianet-node
+          cd gaianet-node
+
       - name: Clone target repository
         uses: actions/checkout@v2
         with:
@@ -37,13 +40,11 @@ jobs:
 
       - name: Copy build files
         run: |
-          cd ../
           ls
-          cp -r ./out/* ./path/to/gaianet-node/dashboard/chatbot-ui/
+          cp -r ../out/* ./dashboard/chatbot-ui/
 
       - name: Commit and push changes
         run: |
-          cd ./path/to/gaianet-node
           git config --local user.email "juyichen0413@gmail.com"
           git config --local user.name "Gaianet worker"
           git add .
