@@ -36,7 +36,9 @@ jobs:
           repository: GaiaNet-AI/gaianet-node
 
       - name: Copy build files
-        run: cp -r ./out/* ./path/to/gaianet-node/dashboard/chatbot-ui/
+        run: |
+          ls
+          cp -r ./out/* ./path/to/gaianet-node/dashboard/chatbot-ui/
 
       - name: Commit and push changes
         run: |
