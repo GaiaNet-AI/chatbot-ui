@@ -32,14 +32,13 @@ jobs:
           yarn next export
 
       - name: Clone target repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: GaiaNet-AI/gaianet-node
 
       - name: Copy build files
         run: |
-          pwd
-          ls ../../
+          ls
           cp -r ../out/* ./dashboard/chatbot-ui/
 
       - name: Commit and push changes
