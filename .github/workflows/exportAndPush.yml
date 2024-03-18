@@ -40,6 +40,8 @@ jobs:
           cp -r ../out/* ./dashboard/chatbot-ui
 
       - name: Commit and push changes
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           cd gaianet-node
           ls
