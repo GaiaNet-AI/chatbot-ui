@@ -45,6 +45,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          cd gaianet-node
           git remote set-url --push origin https://JYC0413:$GITHUB_TOKEN@github.com/GaiaNet-AI/gaianet-node.git
           git config --local user.email "juyichen0413@foxmail.com"
           git config --global user.name "JYC0413"
