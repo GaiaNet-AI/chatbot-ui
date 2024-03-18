@@ -43,6 +43,7 @@ jobs:
         run: |
           cd gaianet-node
           git config --local user.email "840732889@qq.com"
+          git config --global user.name "JYC0413"
           git add .
           git commit -m "Build and deploy chatbot-ui"
           git push
