@@ -30,8 +30,6 @@ jobs:
         run: |
           yarn build
           yarn next export
-          mkdir gaianet-node
-          cd gaianet-node
 
       - name: Clone target repository
         uses: actions/checkout@v2
@@ -40,10 +38,8 @@ jobs:
 
       - name: Copy build files
         run: |
-          ls
-          ls ../
+          pwd
           ls ../../
-          ls ../../../
           cp -r ../out/* ./dashboard/chatbot-ui/
 
       - name: Commit and push changes
