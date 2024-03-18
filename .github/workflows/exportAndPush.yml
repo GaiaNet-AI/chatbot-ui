@@ -40,13 +40,11 @@ jobs:
           cp -r ../out/* ./dashboard/chatbot-ui
 
       - name: Commit changes
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
         run: |
           git config --local user.email "juyichen0413@foxmail.com"
           git config --global user.name "JYC0413"
           git add .
           git commit -m "Build and deploy chatbot-ui"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
+          git push
