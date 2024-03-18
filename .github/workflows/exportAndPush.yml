@@ -42,7 +42,7 @@ jobs:
       - name: Copy build files
         run: |
           pwd
-          ls
+          ls ../
           cp -r ../out/* ./dashboard/chatbot-ui/
 
       - name: Commit and push changes
