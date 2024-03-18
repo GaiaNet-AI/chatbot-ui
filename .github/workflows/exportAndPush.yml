@@ -39,14 +39,13 @@ jobs:
           cd gaianet-node
           cp -r ../out/* ./dashboard/chatbot-ui
 
-      - name: Commit and push changes
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Commit changes
         run: |
-          cd gaianet-node
-          ls
           git config --local user.email "juyichen0413@foxmail.com"
           git config --global user.name "JYC0413"
-          git add .
-          git commit -m "Build and deploy chatbot-ui"
-          git push
+          git commit -a -m "Build and deploy chatbot-ui"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
