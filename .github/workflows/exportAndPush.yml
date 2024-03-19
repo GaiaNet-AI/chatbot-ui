@@ -41,7 +41,7 @@ jobs:
           cd gaianet-node
           cp -r ../out/* ./dashboard/chatbot-ui
           cd ./dashboard/chatbot-ui
-          sed -i 's/href="\/"/href="/g; s/src="\/"/src="/g'
+          sed -i 's/href="\/"/href="/g; s/src="\/"/src="/g' index.html
 
       - name: Commit changes
         env:
