@@ -17,7 +17,7 @@ import {ModelSelect} from './ModelSelect';
 import {SystemPrompt} from './SystemPrompt';
 import {MemoizedChatMessage} from './MemoizedChatMessage';
 import {DEFAULT_TEMPERATURE} from "@/utils/app/const";
-import {ChatStream, ChatWithoutStream} from "@/utils/server";
+import {OpenAIError, OpenAIStream} from "@/utils/server";
 
 interface Props {
     stopConversationRef: MutableRefObject<boolean>;
@@ -40,7 +40,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                 pluginKeys,
                 modelError,
                 loading,
-                prompts
+                prompts,
             },
             handleUpdateConversation,
             dispatch: homeDispatch,
@@ -57,90 +57,14 @@ export const Chat = memo(({stopConversationRef}: Props) => {
         const chatContainerRef = useRef<HTMLDivElement>(null);
         const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-        let textList: string[] = [];
-        let text: string = "";
-        let isFirst: boolean = true;
-        let queryDone: boolean = false;
-        let showDone: boolean = true;
-        let updatedConversation: Conversation;
-
-
-        async function delay(time: number | undefined) {
+        function delay(time: number | undefined) {
             return new Promise(resolve => setTimeout(resolve, time));
-        }
-
-        async function showText() {
-            if (showDone && selectedConversation && textList.length > 0) {
-                showDone = false;
-                for (let i = 0; i < textList.length; i++) {
-                    text += textList.shift();
-                    text = text.replace(/<\|.*?\|>/g, "")
-                    if (isFirst) {
-                        isFirst = false;
-                        homeDispatch({field: 'loading', value: false});
-                        const updatedMessages: Message[] = [
-                            ...updatedConversation.messages,
-                            {role: 'assistant', content: text || ""},
-                        ];
-                        updatedConversation = {
-                            ...updatedConversation,
-                            messages: updatedMessages,
-                        };
-                        homeDispatch({
-                            field: 'selectedConversation',
-                            value: updatedConversation,
-                        });
-                    } else {
-                        const updatedMessages: Message[] =
-                            updatedConversation.messages.map((message, index) => {
-                                if (index === updatedConversation.messages.length - 1) {
-                                    return {
-                                        ...message,
-                                        content: text,
-                                    };
-                                }
-                                return message;
-                            });
-                        updatedConversation = {
-                            ...updatedConversation,
-                            messages: updatedMessages,
-                        };
-                        saveConversation(updatedConversation);
-                        homeDispatch({
-                            field: 'selectedConversation',
-                            value: updatedConversation,
-                        });
-                        const updatedConversations: Conversation[] = conversations.map(
-                            (conversation) => {
-                                if (conversation.id === selectedConversation.id) {
-                                    return updatedConversation;
-                                }
-                                return conversation;
-                            },
-                        );
-                        if (updatedConversations.length === 0) {
-                            updatedConversations.push(updatedConversation);
-                        }
-                        homeDispatch({
-                            field: 'conversations',
-                            value: updatedConversations
-                        });
-                        saveConversations(updatedConversations);
-                        if (queryDone) {
-                            await delay(50)
-                        } else {
-                            await delay(textList.length > 10 ? 300 : 100)
-                        }
-                    }
-                }
-                showDone = true;
-            }
         }
 
         const handleSend = useCallback(
             async (message: Message, deleteCount = 0, plugin: Plugin | null = null) => {
                 if (selectedConversation) {
-                    let sandMessages: Message[];
+                    let updatedConversation: Conversation;
                     if (deleteCount) {
                         const updatedMessages = [...selectedConversation.messages];
                         for (let i = 0; i < deleteCount; i++) {
@@ -155,28 +79,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                             ...selectedConversation,
                             messages: [...selectedConversation.messages, message],
                         };
-                        if (selectedConversation.messages.length === 0) {
-                            updatedConversation = {
-                                ...updatedConversation,
-                                name: typeof message.content === "string" ? message.content : (message.content.find(item => item.type === "text")?.text || "")
-                            };
-                        }
                     }
-                    sandMessages = updatedConversation.messages.map(item => {
-                        if (typeof item.content !== "string") {
-                            return {
-                                ...item, content: item.content.map(data => {
-                                    if (data.type === "image_url" && data.image_url && data.image_url.url.startsWith("data:image/")) {
-                                        return {...data, image_url: {url: data.image_url.url.split(",")[1]}}
-                                    } else {
-                                        return data
-                                    }
-                                })
-                            }
-                        } else {
-                            return item;
-                        }
-                    })
                     homeDispatch({
                         field: 'selectedConversation',
                         value: updatedConversation,
@@ -185,15 +88,24 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                     homeDispatch({field: 'messageIsStreaming', value: true});
                     const chatBody: ChatBody = {
                         model: updatedConversation.model,
-                        messages: sandMessages,
+                        messages: updatedConversation.messages,
                         key: apiKey,
                         prompt: updatedConversation.prompt,
                         temperature: updatedConversation.temperature,
                     };
                     const controller = new AbortController();
 
+                    let response
+
                     try {
                         const {model, messages, key, prompt, temperature} = chatBody;
+
+                        // await init((imports) => WebAssembly.instantiate(wasm, imports));
+                        // const encoding = new Tiktoken(
+                        //     tiktokenModel.bpe_ranks,
+                        //     tiktokenModel.special_tokens,
+                        //     tiktokenModel.pat_str,
+                        // );
 
                         let promptToSend = prompt;
 
@@ -202,121 +114,195 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                             temperatureToUse = DEFAULT_TEMPERATURE;
                         }
 
+                        // const prompt_tokens = encoding.encode(promptToSend);
+
+                        // let tokenCount = prompt_tokens.length;
                         let messagesToSend: Message[] = [];
 
                         for (let i = messages.length - 1; i >= 0; i--) {
                             const message = messages[i];
+                            // const tokens = encoding.encode(message.content);
+
+                            // if (tokenCount + tokens.length + 1000 > model.tokenLimit) {
+                            //   break;
+                            // }
+                            // tokenCount += tokens.length;
                             messagesToSend = [message, ...messagesToSend];
                         }
-                        if (isStream) {
-                            let response: ReadableStream<Uint8Array> | null = await ChatStream(model, promptToSend, temperatureToUse, api, key, messagesToSend);
-                            if (response) {
-                                let notFinishData = "";
-                                const decoder = new TextDecoder();
-                                const reader = response.getReader();
-                                while (!queryDone || textList.length > 0) {
-                                    const {value, done} = await reader.read();
-                                    if (done) {
-                                        queryDone = true;
-                                    }
-                                    let chunkValue = decoder.decode(value);
-                                    if (chunkValue) {
-                                        const parts = chunkValue.split('\n\n');
-                                        parts.forEach(part => {
-                                            let isError = false
-                                            part = part.trim();
-                                            if (part.startsWith('data: ')) {
-                                                part = part.substring(6).trim();
-                                            }
-                                            if (part === "[DONE]") {
-                                                queryDone = true;
-                                            } else {
-                                                if (!part.startsWith('{')) {
-                                                    if (notFinishData) {
-                                                        part = notFinishData + part
-                                                        notFinishData = ""
-                                                    } else {
-                                                        isError = true
-                                                    }
-                                                } else if (!part.endsWith('}')) {
-                                                    notFinishData = part
-                                                    isError = true
-                                                }
-                                            }
-
-                                            if (!isError && !queryDone) {
-                                                try {
-                                                    if (part) {
-                                                        const obj = JSON.parse(part)
-                                                        if (obj && obj["choices"]) {
-                                                            obj["choices"].forEach((obj1: { [x: string]: { [x: string]: any; }; }) => {
-                                                                if (obj1) {
-                                                                    if (obj1["delta"] && obj1["delta"]["content"]) {
-                                                                        textList.push(obj1["delta"]["content"]);
-                                                                    }
-                                                                }
-                                                            })
-                                                        }
-                                                    }
-                                                } catch (e) {
-                                                    console.log("error JSON", part);
-                                                }
-                                            }
-                                        });
-                                    }
-                                    if (showDone) {
-                                        await showText();
-                                    }
-                                }
-                                homeDispatch({field: 'messageIsStreaming', value: false});
-                                controller.abort();
-                            } else {
-                                homeDispatch({field: 'loading', value: false});
-                                homeDispatch({field: 'messageIsStreaming', value: false});
-                            }
-                        } else {
-                            let response = await ChatWithoutStream(model, promptToSend, temperatureToUse, api, key, messagesToSend);
-                            if (response) {
-                                const data = response.choices[0].message;
-                                const updatedMessages: Message[] = [
-                                    ...updatedConversation.messages,
-                                    {role: 'assistant', content: data.content},
-                                ];
-                                updatedConversation = {
-                                    ...updatedConversation,
-                                    messages: updatedMessages,
-                                };
-
-                                homeDispatch({
-                                    field: 'selectedConversation',
-                                    value: updateConversation,
-                                });
-                                saveConversation(updatedConversation);
-                                const updatedConversations: Conversation[] = conversations.map(
-                                    (conversation) => {
-                                        if (conversation.id === selectedConversation.id) {
-                                            return updatedConversation;
-                                        }
-                                        return conversation;
-                                    },
-                                );
-                                if (updatedConversations.length === 0) {
-                                    updatedConversations.push(updatedConversation);
-                                }
-                                homeDispatch({field: 'conversations', value: updatedConversations});
-                                saveConversations(updatedConversations);
-                                homeDispatch({field: 'loading', value: false});
-                                homeDispatch({field: 'messageIsStreaming', value: false});
-                                homeDispatch({
-                                    field: 'selectedConversation',
-                                    value: updatedConversation,
-                                });
-                            }
-                        }
+                        // encoding.free();
+                        response = await OpenAIStream(model, promptToSend, temperatureToUse, api, key, messagesToSend, isStream);
                     } catch (error) {
                         console.error(error);
+                        if (error instanceof OpenAIError) {
+                            response = new Response('Error', {status: 500, statusText: error.message});
+                        } else {
+                            response = new Response('Error', {status: 500});
+                        }
                     }
 
+                    if (response) {
+                        if (isStream) {
+                            // @ts-ignore
+                            let responseIsEnd = false
+                            // response.onEnd(()=>{
+                            //     responseIsEnd = true
+                            // })
+                            const reader = response.getReader();
+                            const decoder = new TextDecoder();
+                            let done = false;
+                            let isFirst = true;
+                            let isShowFirst = true;
+                            let queue: any[] = [];
+                            let text = '';
+                            let notFinishData = ""
+                            while (!done || queue.length !== 0) {
+                                const {value} = await reader.read();
+                                let chunkValue = decoder.decode(value);
+                                const regex = /(?<=})(?={)/g;
+                                const parts = chunkValue.split(regex);
+                                let objects: any[] = []
+                                parts.forEach(part => {
+                                    let isError = false
+                                    part = part.trim();
+                                    if (!part.startsWith('{')) {
+                                        if (notFinishData) {
+                                            part = notFinishData + part
+                                            notFinishData = ""
+                                        } else {
+                                            isError = true
+                                        }
+                                    } else if (!part.endsWith('}')) {
+                                        notFinishData = part
+                                        isError = true
+                                    }
+                                    if (!isError) {
+                                        try {
+                                            objects.push(JSON.parse(part));
+                                        } catch (e) {
+                                            console.log("error JSON", part);
+                                        }
+                                    }
+                                });
+
+                                objects.forEach(obj => {
+                                    if (obj && obj["choices"]) {
+                                        obj["choices"].forEach((obj1: { [x: string]: { [x: string]: any; }; }) => {
+                                            if (obj1) {
+                                                if ((obj1["finish_reason"] && obj1["finish_reason"] !== null) || (obj1["delta"] && obj1["delta"]["content"] && obj1["delta"]["content"] === "data: [DONE]")) {
+                                                    done = true;
+                                                } else {
+                                                    if (!done && obj1["delta"] && obj1["delta"]["content"]) {
+                                                        queue.push(obj1["delta"]["content"]);
+                                                    }
+                                                }
+                                            }
+                                        })
+                                    }
+                                });
+
+                                for (const item of queue) {
+                                    const thisWord = queue.shift();
+                                    if (!isShowFirst) {
+                                        if (!responseIsEnd) {
+                                            await delay(Math.random() * (queue.length < 10 ? 500 : 200));
+                                        }
+                                    } else {
+                                        isShowFirst = false;
+                                    }
+                                    text += thisWord
+                                    if (isFirst) {
+                                        isFirst = false;
+                                        homeDispatch({field: 'loading', value: false});
+                                        const updatedMessages: Message[] = [
+                                            ...updatedConversation.messages,
+                                            {role: 'assistant', content: text},
+                                        ];
+                                        updatedConversation = {
+                                            ...updatedConversation,
+                                            messages: updatedMessages,
+                                        };
+                                        homeDispatch({
+                                            field: 'selectedConversation',
+                                            value: updatedConversation,
+                                        });
+                                    } else {
+                                        const updatedMessages: Message[] =
+                                            updatedConversation.messages.map((message, index) => {
+                                                if (index === updatedConversation.messages.length - 1) {
+                                                    return {
+                                                        ...message,
+                                                        content: text,
+                                                    };
+                                                }
+                                                return message;
+                                            });
+                                        updatedConversation = {
+                                            ...updatedConversation,
+                                            messages: updatedMessages,
+                                        };
+                                        saveConversation(updatedConversation);
+                                        homeDispatch({
+                                            field: 'selectedConversation',
+                                            value: updatedConversation,
+                                        });
+                                        const updatedConversations: Conversation[] = conversations.map(
+                                            (conversation) => {
+                                                if (conversation.id === selectedConversation.id) {
+                                                    return updatedConversation;
+                                                }
+                                                return conversation;
+                                            },
+                                        );
+                                        if (updatedConversations.length === 0) {
+                                            updatedConversations.push(updatedConversation);
+                                        }
+                                        homeDispatch({ field: 'conversations', value: updatedConversations });
+                                        saveConversations(updatedConversations);
+                                    }
+                                    if (done && queue.length === 0) {
+                                        homeDispatch({field: 'messageIsStreaming', value: false});
+                                        controller.abort();
+                                    }
+                                }
+                            }
+                        } else {
+                            const data = response.choices[0].message;
+                            const updatedMessages: Message[] = [
+                                ...updatedConversation.messages,
+                                {role: 'assistant', content: data.content},
+                            ];
+                            updatedConversation = {
+                                ...updatedConversation,
+                                messages: updatedMessages,
+                            };
+                            console.log("updatedMessages")
+
+                            homeDispatch({
+                                field: 'selectedConversation',
+                                value: updateConversation,
+                            });
+                            saveConversation(updatedConversation);
+                            const updatedConversations: Conversation[] = conversations.map(
+                                (conversation) => {
+                                    if (conversation.id === selectedConversation.id) {
+                                        return updatedConversation;
+                                    }
+                                    return conversation;
+                                },
+                            );
+                            if (updatedConversations.length === 0) {
+                                updatedConversations.push(updatedConversation);
+                            }
+                            homeDispatch({ field: 'conversations', value: updatedConversations });
+                            saveConversations(updatedConversations);
+                            homeDispatch({field: 'loading', value: false});
+                            homeDispatch({field: 'messageIsStreaming', value: false});
+                            homeDispatch({
+                                field: 'selectedConversation',
+                                value: updatedConversation,
+                            });
+                        }
+                    }
                 }
             },
             [
@@ -326,7 +312,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                 pluginKeys,
                 isStream,
                 selectedConversation,
-                stopConversationRef
+                stopConversationRef,
             ],
         );
 
@@ -477,7 +463,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                                                     alignItems: "center",
                                                     justifyContent: "center"
                                                 }}>
-                                                    <img style={{height: "4rem",marginRight:"2rem"}} src={lightMode==="dark"?"/GaiaNet-white.svg":"/GaiaNet-black.svg"}/>GaiaNet-AI Chat
+                                                    <img style={{height: "4rem"}} src="/llamaedge.svg"/>LlamaEdge Chat
                                                 </div>
                                             )}
                                         </div>
