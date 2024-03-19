@@ -39,9 +39,8 @@ jobs:
       - name: Copy build files
         run: |
           cd gaianet-node
-          cp -r ../out/* ./dashboard/chatbot-ui
-          cd ./dashboard/chatbot-ui
-          sed -i 's/href="\/"/href="/g; s/src="\/"/src="/g' index.html
+          mv ../out/index,html ./dashboard/chatbot-ui
+          cp -r ../out/* ./dashboard
 
       - name: Commit changes
         env:
