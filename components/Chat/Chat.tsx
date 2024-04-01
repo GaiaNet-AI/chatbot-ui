@@ -477,7 +477,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                                                     alignItems: "center",
                                                     justifyContent: "center"
                                                 }}>
-                                                    <img style={{height: "4rem",marginRight:"2rem"}} src={lightMode==="dark"?"/GaiaNet-white.svg":"/GaiaNet-black.svg"}/>GaiaNet-AI Chat
+                                                    <img style={{height: "4rem",marginRight:"2rem"}} src={lightMode==="dark"?"/GaiaNet-white.svg":"/GaiaNet-black.svg"}/>
                                                 </div>
                                             )}
                                         </div>
