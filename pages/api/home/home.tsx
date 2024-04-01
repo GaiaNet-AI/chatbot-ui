@@ -408,7 +408,7 @@ const Home = ({
             }}
         >
             <Head>
-                <title>LlamaEdge Chat</title>
+                <title>GaiaNet-AI Chat</title>
                 <meta name="description" content="ChatGPT but better."/>
                 <meta
                     name="viewport"

@@ -40,30 +40,34 @@ export const ModelSelect = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <label className="mb-2 text-left text-neutral-700 dark:text-neutral-400">
-        {t('Model')}
-      </label>
-      <div className="w-full rounded-lg border border-neutral-200 bg-transparent pr-2 text-neutral-900 dark:border-neutral-600 dark:text-white">
-        <select
-          className="w-full bg-transparent p-2"
-          placeholder={t('Select a model') || ''}
-          value={selectedConversation?.model?.id || defaultModelId}
-          onChange={handleChange}
-        >
-          {models.map((model) => (
-            <option
-              key={model.id}
-              value={model.id}
-              className="dark:bg-[#343541] dark:text-white"
-            >
-              {model.id === defaultModelId
-                ? `Default (${model.id})`
-                : model.id}
-            </option>
-          ))}
-        </select>
+      <div className="flex flex-col">
+        <label className="mb-2 text-left text-neutral-700 dark:text-neutral-400">
+          {t('Model')}
+        </label>
+        <div className="w-full rounded-lg border border-neutral-200 bg-transparent pr-2 text-neutral-900 dark:border-neutral-600 dark:text-white">
+          {/*<select*/}
+          {/*  disabled*/}
+          {/*  className="w-full bg-transparent p-2"*/}
+          {/*  placeholder={t('Select a model') || ''}*/}
+          {/*  value={selectedConversation?.model?.id || defaultModelId}*/}
+          {/*  onChange={handleChange}*/}
+          {/*>*/}
+          {/*  {models.map((model) => (*/}
+          {/*    <option*/}
+          {/*      key={model.id}*/}
+          {/*      value={model.id}*/}
+          {/*      className="dark:bg-[#343541] dark:text-white"*/}
+          {/*    >*/}
+          {/*      {model.id === defaultModelId*/}
+          {/*        ? `Default (${model.id})`*/}
+          {/*        : model.id}*/}
+          {/*    </option>*/}
+          {/*  ))}*/}
+          {/*</select>*/}
+          <div className="w-full p-2">
+            {selectedConversation?.model?.id || defaultModelId}
+          </div>
+        </div>
       </div>
-    </div>
   );
 };

@@ -439,11 +439,11 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                 {!(apiKey || api) ? (
                     <div className="mx-auto flex h-full w-[300px] flex-col justify-center space-y-6 sm:w-[600px]">
                         <div className="text-center text-4xl font-bold text-black dark:text-white">
-                            Welcome to LlamaEdge Chat
+                            Welcome to GaiaNet-AI Chat
                         </div>
                         <div className="text-center text-gray-500 dark:text-gray-400">
                             <div className="mb-2">
-                                LlamaEdge Chat allows you to plug in your API key to use this UI with
+                                GaiaNet-AI Chat allows you to plug in your API key to use this UI with
                                 their API.
                             </div>
                             <div className="mb-2">
