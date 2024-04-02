@@ -185,10 +185,10 @@ const Home = ({
         const lastConversation = conversations[conversations.length - 1];
         let getPrompt
         if (models && models.length > 0) {
-            await fetch('system_prompt.txt')
-                .then(response => response.text())
+            await fetch('/config_pub.json')
+                .then(response => response.json())
                 .then(data => {
-                    getPrompt = data;
+                    getPrompt = data.system_prompt;
                 })
                 .catch(error => console.error('Error fetching JSON:', error));
             const newConversation: Conversation = {
