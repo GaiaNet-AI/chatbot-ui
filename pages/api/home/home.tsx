@@ -181,15 +181,22 @@ const Home = ({
 
     // CONVERSATION OPERATIONS  --------------------------------------------
 
-    const handleNewConversation = () => {
+    const handleNewConversation = async () => {
         const lastConversation = conversations[conversations.length - 1];
+        let getPrompt
         if (models && models.length > 0) {
+            await fetch('system_prompt.txt')
+                .then(response => response.text())
+                .then(data => {
+                    getPrompt = data;
+                })
+                .catch(error => console.error('Error fetching JSON:', error));
             const newConversation: Conversation = {
                 id: uuidv4(),
                 name: t('New Conversation'),
                 messages: [],
                 model: lastConversation?.model || models[0],
-                prompt: promptsList.find(prompt =>
+                prompt: getPrompt || promptsList.find(prompt =>
                     prompt.id?.toLowerCase() === models[0].name?.toLowerCase()
                 )?.content || "",
                 promptState: promptsList.find(prompt =>
