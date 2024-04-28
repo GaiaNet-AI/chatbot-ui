@@ -18,7 +18,7 @@ import {getSettings} from '@/utils/app/settings';
 import {Conversation} from '@/types/chat';
 import {KeyValuePair} from '@/types/data';
 import {FolderInterface, FolderType} from '@/types/folder';
-import {fallbackModelID,OpenAIModel, OpenAIModelID} from '@/types/openai';
+import {fallbackModelID, OpenAIModel, OpenAIModelID} from '@/types/openai';
 import {Prompt} from '@/types/prompt';
 
 import {Chat} from '@/components/Chat/Chat';
@@ -39,11 +39,11 @@ interface Props {
 
 interface DispatchData {
     id: String;
-    name: String|null;
+    name: String | null;
     messages: [];
     model?: Object;
     prompt?: String;
-    promptState?:Number;
+    promptState?: Number;
     temperature: Number;
     folderId: String | null;
 }
@@ -69,6 +69,7 @@ const Home = ({
             conversations,
             selectedConversation,
             prompts,
+            modelError,
             models
         },
         dispatch,
@@ -76,31 +77,36 @@ const Home = ({
 
     const stopConversationRef = useRef<boolean>(false);
 
-    let data: object | undefined
-
     const getData = async () => {
-        data = await getModels(
-            {
-                url: api,
-                key: apiKey,
-            },
-        );
-        if (dispatch) {
-            dispatch({field: 'models', value: data});
+        try {
+            const data = await getModels(
+                {
+                    url: api,
+                    key: apiKey,
+                },
+            );
+            if (dispatch) {
+                dispatch({field: 'models', value: data});
+            }
+        } catch (e) {
+            if (dispatch && !modelError) {
+                dispatch({field: 'modelError', value: {code: "500", title: "false", messageLines: []}});
+            }
+            console.log(e)
         }
     }
 
-    useEffect(()=>{
-        if(models && (!conversations || conversations && conversations.length===0) && handleNewConversation){
+    useEffect(() => {
+        if (models && (!conversations || conversations && conversations.length === 0) && handleNewConversation) {
             handleNewConversation()
         }
-    },[models])
+    }, [models])
 
     useEffect(() => {
-        if (api) {
+        if (typeof window !== 'undefined' && api) {
             getData()
         }
-    }, [api, apiKey])
+    }, [])
 
     // FETCH MODELS ----------------------------------------------
 
@@ -365,9 +371,9 @@ const Home = ({
                 parsedSelectedConversation,
             );
 
-            if(cleanedSelectedConversation.model && models && models.length > 0) {
-                const haveThisSelectedModels = models.filter(model=>model.id === cleanedSelectedConversation.model.id)
-                if(!haveThisSelectedModels || haveThisSelectedModels.length === 0){
+            if (cleanedSelectedConversation.model && models && models.length > 0) {
+                const haveThisSelectedModels = models.filter(model => model.id === cleanedSelectedConversation.model.id)
+                if (!haveThisSelectedModels || haveThisSelectedModels.length === 0) {
                     cleanedSelectedConversation.model = models[0]
                     cleanedSelectedConversation.prompt = promptsList.find(prompt =>
                         prompt.id?.toLowerCase() === models[0]?.name?.toLowerCase()
@@ -384,14 +390,14 @@ const Home = ({
             });
         } else {
             const lastConversation = conversations[conversations.length - 1];
-            let dispatchData:DispatchData ={
-                    id: uuidv4(),
-                    name: t('New Conversation'),
-                    messages: [],
-                    temperature: lastConversation?.temperature ?? DEFAULT_TEMPERATURE,
-                    folderId: null,
-                }
-            if(models && models.length > 0){
+            let dispatchData: DispatchData = {
+                id: uuidv4(),
+                name: t('New Conversation'),
+                messages: [],
+                temperature: lastConversation?.temperature ?? DEFAULT_TEMPERATURE,
+                folderId: null,
+            }
+            if (models && models.length > 0) {
                 dispatchData.model = models[0]
                 dispatchData.prompt = promptsList.find(prompt =>
                     prompt.id?.toLowerCase() === models[0]?.name?.toLowerCase()
@@ -401,7 +407,7 @@ const Home = ({
                 )?.controlState || 0
             }
             dispatch({
-                field: 'selectedConversation', value:dispatchData
+                field: 'selectedConversation', value: dispatchData
             });
         }
     }, [
