@@ -36,12 +36,12 @@ export const QueryUrl: FC<Props> = ({api, onApiChange}) => {
 
     return isChanging ? (
         <div
-            className="duration:200 flex w-full cursor-pointer items-center rounded-md py-3 px-3 transition-colors hover:bg-gray-500/10">
-            <IconLink size={18}/>
+            className="duration:200 flex w-full cursor-pointer items-center rounded-md py-[11px] px-4 transition-colors hover:bg-gray-500/10">
+            <IconLink size={18} color="#322221" />
 
             <input
                 ref={inputRef}
-                className="ml-2 h-[20px] flex-1 overflow-hidden overflow-ellipsis border-b border-neutral-400 bg-transparent pr-1 text-[12.5px] leading-3 text-left text-white outline-none focus:border-neutral-100"
+                className="ml-2 h-[20px] flex-1 overflow-hidden overflow-ellipsis border-b border-neutral-400 bg-transparent pr-1 text-[12.5px] leading-3 text-left text-[#322221] outline-none focus:border-neutral-100"
                 value={newKey}
                 onChange={(e) => setNewKey(e.target.value)}
                 onKeyDown={handleEnterDown}
@@ -50,7 +50,7 @@ export const QueryUrl: FC<Props> = ({api, onApiChange}) => {
 
             <div className="flex w-[40px]">
                 <IconCheck
-                    className="ml-auto min-w-[20px] text-neutral-400 hover:text-neutral-100"
+                    className="ml-auto min-w-[20px] text-neutral-400 hover:text-[#322221]"
                     size={18}
                     onClick={(e) => {
                         e.stopPropagation();
@@ -59,7 +59,7 @@ export const QueryUrl: FC<Props> = ({api, onApiChange}) => {
                 />
 
                 <IconX
-                    className="ml-auto min-w-[20px] text-neutral-400 hover:text-neutral-100"
+                    className="ml-auto min-w-[20px] text-neutral-400 hover:text-[#322221]"
                     size={18}
                     onClick={(e) => {
                         e.stopPropagation();

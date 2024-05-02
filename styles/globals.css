@@ -2,6 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'SpaceMono';
+  src: url('../public/fonts/SpaceMono-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpaceMono';
+  src: url('../public/fonts/SpaceMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SourceCodePro';
+  src: url('../public/fonts/SourceCodePro-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SourceCodePro';
+  src: url('../public/fonts/SourceCodePro-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'IBMPlexMono';
+  src: url('../public/fonts/IBMPlexMono-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBMPlexMono';
+  src: url('../public/fonts/IBMPlexMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'SpaceGrotesk';
+  src: url('../public/fonts/SpaceGrotesk-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SpaceGrotesk';
+  src: url('../public/fonts/SpaceGrotesk-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 ::-webkit-scrollbar-track {
   background-color: transparent;
 }
@@ -28,9 +80,29 @@
   height: 6px;
 }
 
-html {
-  background: #202123;
+.fm-SpaceMono {
+  font-family: 'SpaceMono';
 }
+.fm-SourceCodePro {
+  font-family: 'SourceCodePro';
+}
+.fm-IBMPlexMono {
+  font-family: 'IBMPlexMono';
+}
+.fm-SpaceGrotesk {
+  font-family: 'SpaceGrotesk';
+}
+
+html,body {
+  font-family: 'SourceCodePro';
+  background: #ffffff;
+}
+
+.inputPlaceholderSourceCodePro::placeholder {
+  font-family: 'SourceCodePro';
+}
+
+
 
 @media (max-width: 720px) {
   pre {
