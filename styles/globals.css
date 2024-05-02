@@ -40,7 +40,6 @@
   font-style: normal;
 }
 
-
 @font-face {
   font-family: 'SpaceGrotesk';
   src: url('../public/fonts/SpaceGrotesk-Bold.ttf') format('truetype');
@@ -93,7 +92,8 @@
   font-family: 'SpaceGrotesk';
 }
 
-html,body {
+html,
+body {
   font-family: 'SourceCodePro';
   background: #ffffff;
 }
@@ -102,7 +102,29 @@ html,body {
   font-family: 'SourceCodePro';
 }
 
+.gaianet-tippy {
+  background-color: #fff;
+}
+.gaianet-tippy > .tippy-content {
+  padding: 0;
+}
 
+.charBg {
+  position: relative;
+}
+.charBg::after {
+  content:'';
+  width: 220px;
+  height: 158px;
+  background: url('../public/gaianet-opacity.png') no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
 
 @media (max-width: 720px) {
   pre {

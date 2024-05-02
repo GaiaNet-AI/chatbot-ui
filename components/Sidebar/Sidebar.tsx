@@ -62,7 +62,7 @@ const Sidebar = <T,>({
       {/* 202123 */}
       {/* ffffff */}
       <div
-        className={`fixed top-0 ${side}-0 z-40 flex flex-col h-full w-[280px]  space-y-2 bg-[#ffffff] text-[14px] transition-all sm:relative sm:top-0`}
+        className={`fixed top-0 ${side}-0 z-40 flex flex-col h-full w-[280px] border-r border-[rgba(0,0,0,0.15)]  space-y-2 bg-[#ffffff] text-[14px] transition-all sm:relative sm:top-0`}
       >
         <div className="w-full flex-1 flex flex-col pt-[29px] overflow-auto">
           <div className="px-4 ">
@@ -124,7 +124,7 @@ const Sidebar = <T,>({
 
             {items?.length > 0 ? (
               <div
-                className="pt-2 border-t border-[rgba(0, 0, 0, 0.08)] px-4"
+                className="pt-2 border-t border-[rgba(0,0,0,0.15)] px-4"
                 onDrop={handleDrop}
                 onDragOver={allowDrop}
                 onDragEnter={highlightDrop}
