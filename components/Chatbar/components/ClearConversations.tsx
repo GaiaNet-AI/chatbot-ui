@@ -20,7 +20,7 @@ export const ClearConversations: FC<Props> = ({ onClearConversations }) => {
   };
 
   return isConfirming ? (
-    <div className="flex w-full cursor-pointer items-center rounded-lg py-3 px-3 hover:bg-[#fafafa]">
+    <div className="flex w-full cursor-pointer items-center rounded-lg py-3 px-4 hover:bg-[#fafafa]">
       <IconTrash size={18} color="#322221" />
 
       <div className="ml-3 flex-1 text-left text-[14px] leading-3 text-[#322221] fm-SpaceGrotesk">

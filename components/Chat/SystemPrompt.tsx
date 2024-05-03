@@ -230,14 +230,14 @@ export const SystemPrompt: FC<Props> = ({
           </div>
         )}
         <div className="flex items-center justify-end mt-4 gap-3">
-          <div
+          {/* <div
             className="inline-flex px-3 py-[6px] capitalize rounded border border-[rgba(0,0,0,.08)] cursor-pointer fm-SpaceMono text-xs text-[#322221] leading-5"
             onClick={() => {
               if (tippyInstance) tippyInstance.hide();
             }}
           >
             default
-          </div>
+          </div> */}
           <div
             className="inline-flex px-3 py-[6px] capitalize rounded border border-[#D43327] cursor-pointer fm-SpaceMono text-xs text-white bg-[#D43327] leading-5"
             onClick={() => handelSave()}

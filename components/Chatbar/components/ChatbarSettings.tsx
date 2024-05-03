@@ -1,28 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import {
-  IconBrandGithub,
-  IconBrandTwitter,
-  IconDice1,
-  IconDice3,
-  IconEaseIn,
-  IconFaceId,
-  IconFaceMask,
-  IconFeather,
-  IconFileExport,
-  IconInfoCircle,
-  IconRobot,
-  IconSettings,
-  IconShieldCode,
-  IconShieldCog,
-  IconSock,
-  IconSofa,
-} from '@tabler/icons-react';
+import { IconInfoCircle, IconSettings } from '@tabler/icons-react';
 import { useContext, useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
 
 import HomeContext from '@/pages/api/home/home.context';
 
+import { ApiTutarialDialog } from '@/components/Settings/ApiTutarialDialog';
 import { SettingDialog } from '@/components/Settings/SettingDialog';
 
 import { Import } from '../../Settings/Import';
@@ -34,6 +18,8 @@ import { ClearConversations } from './ClearConversations';
 export const ChatbarSettings = () => {
   const { t } = useTranslation('sidebar');
   const [isSettingDialogOpen, setIsSettingDialog] = useState<boolean>(false);
+  const [isApitutorialDialogOpen, setIsApitutorialDialogOpen] =
+    useState<boolean>(false);
 
   const {
     state: {
@@ -71,7 +57,7 @@ export const ChatbarSettings = () => {
             alt=""
           />
         }
-        onClick={() => window.open('https://twitter.com/gaianet_ai', '_blank')}
+        onClick={() => setIsApitutorialDialogOpen(true)}
       />
       <SidebarButton
         text="node info"
@@ -157,6 +143,13 @@ export const ChatbarSettings = () => {
         open={isSettingDialogOpen}
         onClose={() => {
           setIsSettingDialog(false);
+        }}
+      />
+
+      <ApiTutarialDialog
+        open={isApitutorialDialogOpen}
+        onClose={() => {
+          setIsApitutorialDialogOpen(false);
         }}
       />
     </div>

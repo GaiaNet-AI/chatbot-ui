@@ -604,7 +604,6 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
                   ))}
 
                 {loading && <ChatLoader />}
-
                 <div
                   className="h-[162px] bg-white"
                   ref={messagesEndRef}

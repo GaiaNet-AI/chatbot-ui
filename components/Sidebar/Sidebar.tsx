@@ -59,10 +59,8 @@ const Sidebar = <T,>({
 
   return isOpen ? (
     <div>
-      {/* 202123 */}
-      {/* ffffff */}
       <div
-        className={`fixed top-0 ${side}-0 z-40 flex flex-col h-full w-[280px] border-r border-[rgba(0,0,0,0.15)]  space-y-2 bg-[#ffffff] text-[14px] transition-all sm:relative sm:top-0`}
+        className={`fixed top-0 ${side}-0 z-40 flex flex-col h-full w-[280px] border-r border-[rgba(0,0,0,0.08)]  space-y-2 bg-[#ffffff] text-[14px] transition-all sm:relative sm:top-0`}
       >
         <div className="w-full flex-1 flex flex-col pt-[29px] overflow-auto">
           <div className="px-4 ">
@@ -144,7 +142,7 @@ const Sidebar = <T,>({
         {footerComponent}
       </div>
 
-      {/* <CloseSidebarButton onClick={toggleOpen} side={side} /> */}
+      <CloseSidebarButton onClick={toggleOpen} side={side} />
     </div>
   ) : (
     <OpenSidebarButton onClick={toggleOpen} side={side} />
