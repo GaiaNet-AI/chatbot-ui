@@ -222,7 +222,7 @@ export const SystemPrompt: FC<Props> = ({
           value={value || ''}
           rows={1}
           onChange={handleChange}
-          onKeyDown={handleKeyDown}
+          // onKeyDown={handleKeyDown}
         />
         {error && (
           <div className="text-xs text-[#D43327] mt-1">

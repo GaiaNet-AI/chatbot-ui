@@ -2,20 +2,12 @@
 import { IconX } from '@tabler/icons-react';
 import { FC,  useEffect, useRef } from 'react';
 
-
-
-import { getSettings,  } from '@/utils/app/settings';
-
-import { Settings } from '@/types/settings';
-
-
 interface Props {
   open: boolean;
   onClose: () => void;
 }
 
 export const ApiTutarialDialog: FC<Props> = ({ open, onClose }) => {
-  const settings: Settings = getSettings();
  
   const modalRef = useRef<HTMLDivElement>(null);
 

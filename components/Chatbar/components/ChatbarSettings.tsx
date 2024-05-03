@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next';
 import HomeContext from '@/pages/api/home/home.context';
 
 import { ApiTutarialDialog } from '@/components/Settings/ApiTutarialDialog';
+import { NodeInfoDialog } from '@/components/Settings/NodeInfoDialog';
 import { SettingDialog } from '@/components/Settings/SettingDialog';
 
 import { Import } from '../../Settings/Import';
@@ -17,6 +18,8 @@ import { ClearConversations } from './ClearConversations';
 
 export const ChatbarSettings = () => {
   const { t } = useTranslation('sidebar');
+  const [isNodeInfoDialogOpen, setIsNodeInfoDialogOpen] =
+    useState<boolean>(false);
   const [isSettingDialogOpen, setIsSettingDialog] = useState<boolean>(false);
   const [isApitutorialDialogOpen, setIsApitutorialDialogOpen] =
     useState<boolean>(false);
@@ -62,7 +65,7 @@ export const ChatbarSettings = () => {
       <SidebarButton
         text="node info"
         icon={<IconInfoCircle size={18} />}
-        onClick={() => window.open('https://twitter.com/gaianet_ai', '_blank')}
+        onClick={() => setIsNodeInfoDialogOpen(true)}
       />
       <QueryUrl api={api} onApiChange={handleApiChange} />
       <SidebarButton
@@ -150,6 +153,12 @@ export const ChatbarSettings = () => {
         open={isApitutorialDialogOpen}
         onClose={() => {
           setIsApitutorialDialogOpen(false);
+        }}
+      />
+      <NodeInfoDialog
+        open={isNodeInfoDialogOpen}
+        onClose={() => {
+          setIsNodeInfoDialogOpen(false);
         }}
       />
     </div>
