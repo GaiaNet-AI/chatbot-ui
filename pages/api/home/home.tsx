@@ -82,6 +82,7 @@ const Home = ({
             const data = await getModels(
                 {
                     url: api,
+                    // url: "https://law.gaianet.network",
                     key: apiKey,
                 },
             );
@@ -106,7 +107,7 @@ const Home = ({
         if (typeof window !== 'undefined' && api) {
             getData()
         }
-    }, [])
+    }, [api])
 
     // FETCH MODELS ----------------------------------------------
 
@@ -431,26 +432,26 @@ const Home = ({
             }}
         >
             <Head>
-                <title>GaiaNet-AI Chat</title>
+                <title>GaiaNet</title>
                 <meta name="description" content="ChatGPT but better."/>
                 <meta
                     name="viewport"
                     content="height=device-height ,width=device-width, initial-scale=1, user-scalable=no"
                 />
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" href="/favicon.png"/>
             </Head>
             {selectedConversation && (
                 <main
                     className={`flex h-screen w-screen flex-col text-sm text-white dark:text-white ${lightMode}`}
                 >
-                    <div className="fixed top-0 w-full sm:hidden">
+                    <div className="fixed top-0 w-full sm:hidden ">
                         <Navbar
                             selectedConversation={selectedConversation}
                             onNewConversation={handleNewConversation}
                         />
                     </div>
 
-                    <div className="flex h-full w-full pt-[48px] sm:pt-0">
+                    <div className="flex h-full w-full pt-[49px] sm:pt-0">
                         <Chatbar/>
 
                         <div className="flex flex-1">
