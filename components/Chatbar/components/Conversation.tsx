@@ -107,7 +107,7 @@ export const ConversationComponent = ({ conversation }: Props) => {
         <div className="flex w-full items-center gap-2 rounded bg-[#ffffff] px-[10px] py-[11px]">
           <img
             style={{ width: '16px', height: '16px' }}
-            src={'/icons/icon-message.svg'}
+            src={'./icons/icon-message.svg'}
             alt=""
           />
           <input
@@ -133,7 +133,7 @@ export const ConversationComponent = ({ conversation }: Props) => {
         >
           <img
             style={{ width: '16px', height: '16px' }}
-            src={'/icons/icon-message.svg'}
+            src={'./icons/icon-message.svg'}
             alt=""
           />
           <div

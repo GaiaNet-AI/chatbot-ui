@@ -107,7 +107,7 @@ const Home = ({
         if (typeof window !== 'undefined' && api) {
             getData()
         }
-    }, [])
+    }, [api])
 
     // FETCH MODELS ----------------------------------------------
 

@@ -100,13 +100,13 @@ const Folder = ({
             {isOpen ? (
               <img
                 style={{ width: '12px', height: '12px' }}
-                src={'/icons/icon-care-down.svg'}
+                src={'./icons/icon-care-down.svg'}
                 alt=""
               />
             ) : (
               <img
                 style={{ width: '12px', height: '12px' }}
-                src={'/icons/icon-care-right.svg'}
+                src={'./icons/icon-care-right.svg'}
                 alt=""
               />
             )}
@@ -132,13 +132,13 @@ const Folder = ({
               {isOpen ? (
                 <img
                   style={{ width: '12px', height: '12px' }}
-                  src={'/icons/icon-care-down.svg'}
+                  src={'./icons/icon-care-down.svg'}
                   alt=""
                 />
               ) : (
                 <img
                   style={{ width: '12px', height: '12px' }}
-                  src={'/icons/icon-care-right.svg'}
+                  src={'./icons/icon-care-right.svg'}
                   alt=""
                 />
               )}

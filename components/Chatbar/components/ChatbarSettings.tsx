@@ -56,7 +56,7 @@ export const ChatbarSettings = () => {
         icon={
           <img
             style={{ width: '18px', height: '18px' }}
-            src={'/icons/APITutorial.png'}
+            src={'./icons/APITutorial.png'}
             alt=""
           />
         }
@@ -84,13 +84,13 @@ export const ChatbarSettings = () => {
           <div className="flex items-center justify-center w-[36px] h-[36px] rounded-[18px] border border-[#322221] cursor-pointer bg-white group-hover:bg-[#D43327] transition-all ">
             <img
               style={{ width: '18px', height: '18px' }}
-              src={'/icons/twitter.svg'}
+              src={'./icons/twitter.svg'}
               alt=""
               className="block group-hover:hidden"
             />
             <img
               style={{ width: '18px', height: '18px' }}
-              src={'/icons/twitter-white.svg'}
+              src={'./icons/twitter-white.svg'}
               alt=""
               className="hidden group-hover:block"
             />
@@ -103,13 +103,13 @@ export const ChatbarSettings = () => {
           <div className="flex items-center justify-center w-[36px] h-[36px] rounded-[18px] border border-[#322221] cursor-pointer bg-white group-hover:bg-[#D43327] transition-all ">
             <img
               style={{ width: '18px', height: '18px' }}
-              src={'/icons/github.svg'}
+              src={'./icons/github.svg'}
               alt=""
               className="block group-hover:hidden"
             />
             <img
               style={{ width: '18px', height: '18px' }}
-              src={'/icons/github-white.svg'}
+              src={'./icons/github-white.svg'}
               alt=""
               className="hidden group-hover:block"
             />
@@ -124,13 +124,13 @@ export const ChatbarSettings = () => {
           <div className="flex items-center justify-center w-[36px] h-[36px] rounded-[18px] border border-[#322221] cursor-pointer bg-white group-hover:bg-[#D43327] transition-all ">
             <img
               style={{ width: '18px', height: '18px' }}
-              src={'/icons/huggingface.svg'}
+              src={'./icons/huggingface.svg'}
               alt=""
               className="block group-hover:hidden"
             />
             <img
               style={{ width: '18px', height: '18px' }}
-              src={'/icons/huggingface-white.svg'}
+              src={'./icons/huggingface-white.svg'}
               alt=""
               className="hidden group-hover:block"
             />

@@ -359,7 +359,7 @@ export const ChatInput = ({
             >
               <img
                 style={{ width: '20px', height: '20px' }}
-                src={'/icons/icon-upload.svg'}
+                src={'./icons/icon-upload.svg'}
                 alt=""
               />
             </button>
@@ -396,7 +396,7 @@ export const ChatInput = ({
               >
                 <img
                   style={{ width: '20px', height: '20px' }}
-                  src={'/icons/icon-link.svg'}
+                  src={'./icons/icon-link.svg'}
                   alt=""
                 />
               </button>
@@ -498,7 +498,7 @@ export const ChatInput = ({
               <>
                 <img
                   style={{ width: '18px', height: '18px' }}
-                  src={'/icons/icon-send.svg'}
+                  src={'./icons/icon-send.svg'}
                   alt=""
                 />
                 <p className="text-xs font-bold text-[#989898] uppercase">

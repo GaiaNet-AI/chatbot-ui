@@ -255,13 +255,13 @@ export const ChatMessage: FC<Props> = memo(
             {message.role === 'assistant' ? (
               <img
                 style={{ width: '32px', height: '32px' }}
-                src={'/icons/icon-bot.svg'}
+                src={'./icons/icon-bot.svg'}
                 alt=""
               />
             ) : (
               <img
                 style={{ width: '32px', height: '32px' }}
-                src={'/icons/icon-user.svg'}
+                src={'./icons/icon-user.svg'}
                 alt=""
               />
             )}

@@ -64,7 +64,7 @@ const Sidebar = <T,>({
       >
         <div className="w-full flex-1 flex flex-col pt-[29px] overflow-auto">
           <div className="px-4 ">
-            <img className="w-40 h-10" src={'/GaiaNet-black.svg'} alt="" />
+            <img className="w-40 h-10" src={'./GaiaNet-black.svg'} alt="" />
 
             <div className="flex items-center justify-between mt-8 ">
               <div className="group">

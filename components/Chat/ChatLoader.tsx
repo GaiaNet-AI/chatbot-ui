@@ -15,7 +15,7 @@ export const ChatLoader: FC<Props> = () => {
           <div className="min-w-[40px] items-end">
             <img
               style={{ width: '32px', height: '32px' }}
-              src={'/icons/icon-bot.svg'}
+              src={'./icons/icon-bot.svg'}
               alt=""
             />
           </div>
