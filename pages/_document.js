@@ -9,7 +9,10 @@ export default function Document(props) {
     <Html lang={currentLocale}>
       <Head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-title" content="GaiaNet-AI Chat"></meta>
+        <meta
+          name="apple-mobile-web-app-title"
+          content="GaiaNet"
+        ></meta>
       </Head>
       <body>
         <Main />
