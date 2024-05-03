@@ -81,7 +81,8 @@ const Home = ({
         try {
             const data = await getModels(
                 {
-                    url: "https://law.gaianet.network",
+                    url: api,
+                    // url: "https://law.gaianet.network",
                     key: apiKey,
                 },
             );

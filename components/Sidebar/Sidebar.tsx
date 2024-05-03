@@ -89,7 +89,7 @@ const Sidebar = <T,>({
 
               <div className="group">
                 <button
-                  // disabled={!canCreateChat}
+                  disabled={!canCreateChat}
                   className={
                     'flex flex-shrink-0 items-center justify-center rounded w-[42px] h-[42px] transition-colors duration-200 bg-[#F5F5F5] group-hover:bg-[#D43327] ' +
                     (canCreateChat ? 'cursor-pointer' : 'cursor-not-allowed')
