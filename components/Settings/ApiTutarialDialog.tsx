@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { IconX } from '@tabler/icons-react';
-import { FC,  useEffect, useRef } from 'react';
+import { FC,  useEffect, useRef, useMemo } from 'react';
 
 interface Props {
   open: boolean;
@@ -30,13 +30,20 @@ export const ApiTutarialDialog: FC<Props> = ({ open, onClose }) => {
     };
   }, [onClose]);
 
+
+  const apiOrigin = useMemo(() => {
+     return typeof window === 'undefined' ? '' : window.location.href
+  }, [])
+
   // Render nothing if the dialog is not open.
   if (!open) {
     return <></>;
   }
 
-  const messages =
-    '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "Where is Paris?"}], "model":"Llama-2-7b-chat-hf-Q5_K_M"}';
+
+
+  const messages = 
+    '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "Where is Paris?"}]}';
 
   // Render the dialog.
   return (
@@ -80,7 +87,7 @@ export const ApiTutarialDialog: FC<Props> = ({ open, onClose }) => {
                   className="flex items-center gap-1 mr-4 cursor-pointer"
                   onClick={() => {
                     navigator.clipboard.writeText(
-                      `curl -X POST https://knowledge.gaianet.network/v1/chat/completions \ -H 'accept: application/json' \ -H 'Content-Type: application/json' \-D '${messages}'`,
+                      `curl -X POST ${apiOrigin}v1/chat/completions \ -H 'accept: application/json' \ -H 'Content-Type: application/json' \-D '${messages}'`,
                     );
                   }}
                 >
@@ -105,12 +112,14 @@ export const ApiTutarialDialog: FC<Props> = ({ open, onClose }) => {
               </div>
               <div className="w-full p-5 ">
                 <code>
-                  curl -X POST https://knowledge.gaianet.network/
+                  curl -X POST {apiOrigin} <br />
                   v1/chat/completions \ <br />
                   &nbsp;&nbsp;-H 'accept: application/json' \<br />
                   &nbsp;&nbsp;-H 'Content-Type: application/json' \<br />
                   &nbsp;&nbsp;-D '{messages}'
                 </code>
+
+        
               </div>
             </div>
           </div>
