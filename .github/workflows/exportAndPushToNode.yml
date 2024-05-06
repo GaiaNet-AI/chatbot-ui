@@ -43,7 +43,7 @@ jobs:
           mv ../out/index.html ./dashboard/chatbot-ui
           mv ../out/*.svg ./dashboard/chatbot-ui
           mv ../out/*.png ./dashboard/chatbot-ui
-          mv ../out/icons ./dashboard/chatbot-ui
+          mv -f ../out/icons ./dashboard/chatbot-ui
           mv ../out/*.ico ./dashboard/chatbot-ui
           cp -r ../out/* ./dashboard/
 
