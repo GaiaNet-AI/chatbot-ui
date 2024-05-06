@@ -37,7 +37,7 @@ jobs:
         run: |
           git config --global user.email "juyichen0413@foxmail.com"
           git config --global user.name "JYC0413"
-          git clone https://github.com/GaiaNet-AI/gaianet-dapp.git
+          git clone https://JYC0413:$GITHUB_TOKEN@github.com/GaiaNet-AI/gaianet-dapp.git
 
       - name: Copy build files
         run: |
