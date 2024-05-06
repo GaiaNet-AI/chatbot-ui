@@ -39,7 +39,7 @@ jobs:
       - name: Copy build files
         run: |
           cd gaianet-node
-          mkdir ./dashboard/chatbot-ui
+          mkdir -p ./dashboard/chatbot-ui
           mv ../out/index.html ./dashboard/chatbot-ui
           mv ../out/*.svg ./dashboard/chatbot-ui
           mv ../out/*.png ./dashboard/chatbot-ui
