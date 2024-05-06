@@ -33,25 +33,15 @@ jobs:
           yarn build
           yarn next export
 
-      - name: Clone target repository
-        run: |
-          git config --global user.email "juyichen0413@foxmail.com"
-          git config --global user.name "JYC0413"
-          git clone https://JYC0413:$GITHUB_TOKEN@github.com/GaiaNet-AI/gaianet-dapp.git
-
-      - name: Copy build files
-        run: |
-          cd gaianet-dapp
-          cp -r ../out/* ./src/chatbot-ui
-
-      - name: Commit changes
+      - name: Push directory to another repository
+        if: ${{ github.event_name == 'push' }}
+        uses: cpina/github-action-push-to-another-repository@main
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          cd gaianet-node
-          git remote set-url --push origin https://JYC0413:$GITHUB_TOKEN@github.com/GaiaNet-AI/gaianet-dapp.git
-          git config --global user.email "juyichen0413@foxmail.com"
-          git config --global user.name "JYC0413"
-          git add .
-          git commit -m "Build and deploy chatbot-ui"
-          git push
+          API_TOKEN_GITHUB: ${{ secrets.WEB_DEPLOY }}
+        with:
+          source-directory: 'out'
+          destination-github-username: 'GaiaNet-AI'
+          destination-repository-name: 'gaianet-dapp'
+          target-directory: 'src/chatbot-ui'
+          user-email: juyichen0413@foxmail.com
+          target-branch: main
