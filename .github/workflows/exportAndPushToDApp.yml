@@ -37,7 +37,7 @@ jobs:
         if: ${{ github.event_name == 'push' }}
         uses: cpina/github-action-push-to-another-repository@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.WEB_DEPLOY }}
+          API_TOKEN_GITHUB: ${{ secrets.GH_TOKEN }}
         with:
           source-directory: 'out'
           destination-github-username: 'GaiaNet-AI'
