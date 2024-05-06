@@ -1,4 +1,4 @@
-name: Release
+name: to dapp
 on:
   push:
     branches: [ "main" ]
@@ -39,7 +39,7 @@ jobs:
       - name: Copy build files
         run: |
           cd gaianet-dapp
-          mv ../out ./src/chatbot-ui
+          cp -r ../out/* ./src/chatbot-ui
 
       - name: Commit changes
         env:
