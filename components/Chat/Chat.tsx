@@ -530,7 +530,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
             ref={chatContainerRef}
             onScroll={handleScroll}
           >
-            <div className="sticky top-0 flex w-full items-center justify-end gap-3 h-[84px] bg-white border-b border-[rgba(0,0,0,0.15)] pr-5">
+            <div className="sticky z-10 top-0 flex w-full items-center justify-end gap-3 h-[84px] bg-white border-b border-[rgba(0,0,0,0.15)] pr-5">
               <div className="inline-flex items-center justify-center rounded-lg px-3 h-[44px] text-[13px] bg-white text-black border border-[rgba(0, 0, 0, 0.08)] cursor-pointer hover:border-black transition-all">
                 <p>{selectedConversation?.model?.id || defaultModelId}</p>
               </div>
