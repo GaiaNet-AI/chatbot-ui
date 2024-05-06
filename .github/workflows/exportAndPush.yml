@@ -1,0 +1,55 @@
+name: Release
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      deployments: write
+      issues: write
+      packages: write
+      pull-requests: write
+      repository-projects: write
+      security-events: write
+      statuses: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16.x
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Build Project
+        run: |
+          yarn build
+          yarn next export
+
+      - name: Clone target repository
+        run: git clone https://github.com/GaiaNet-AI/gaianet-node.git
+
+      - name: Copy build files
+        run: |
+          cd gaianet-node
+          mv ../out/index.html ./dashboard/chatbot-ui
+          cp -r ../out/* ./dashboard
+
+      - name: Commit changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          cd gaianet-node
+          git remote set-url --push origin https://JYC0413:$GITHUB_TOKEN@github.com/GaiaNet-AI/gaianet-node.git
+          git config --local user.email "juyichen0413@foxmail.com"
+          git config --global user.name "JYC0413"
+          git add .
+          git commit -m "Build and deploy chatbot-ui"
+          git push
