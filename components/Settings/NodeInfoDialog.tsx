@@ -84,26 +84,26 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
               </p>
             </div>
             <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
+              <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0 ">
                 Node ID or address
               </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
+              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
                 {nodeInfo?.address || '-'}
               </p>
             </div>
             <div className="flex item-center  flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
+              <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
                 GaiaNet domain
               </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
+              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
                 {nodeInfo?.domain || '-'}
               </p>
             </div>
             <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
+              <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
                 Public URL
               </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
+              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
                 {nodeInfo?.address && nodeInfo?.domain
                   ? `https://${nodeInfo?.address}.${nodeInfo?.domain}`
                   : '-'}
@@ -111,37 +111,37 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
             </div>
 
             <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
+              <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
                 Description
               </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
+              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
                 {nodeInfo?.description || '-'}
               </p>
             </div>
 
             <div className="flex item-center flex-col lg:flex-row  min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
+              <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0 ">
                 Finetuned LLM
               </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
+              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
                 {nodeInfo?.chat ? nodeInfo?.chat.split('/').pop() : '-'}
               </p>
             </div>
 
             <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
+              <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
                 System prompt
               </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
+              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
                 {nodeInfo?.system_prompt || '-'}
               </p>
             </div>
 
             <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
+              <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
                 Embedding model for knowledge vectors
               </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
+              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
                 {nodeInfo?.embedding
                   ? nodeInfo?.embedding.split('/').pop()
                   : '-'}
@@ -149,19 +149,19 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
             </div>
 
             <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
+              <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
                 Knowledge base
               </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
+              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
                 {nodeInfo?.snapshot ? nodeInfo?.snapshot.split('/').pop() : '-'}
               </p>
             </div>
 
             <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
+              <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
                 RAG prompt
               </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
+              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
                 {nodeInfo?.rag_prompt || '-'}
               </p>
             </div>

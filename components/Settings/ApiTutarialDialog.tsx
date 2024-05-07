@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { IconX } from '@tabler/icons-react';
-import { FC,  useEffect, useRef, useMemo } from 'react';
+import { IconCheck, IconX } from '@tabler/icons-react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 
 interface Props {
   open: boolean;
@@ -8,8 +8,8 @@ interface Props {
 }
 
 export const ApiTutarialDialog: FC<Props> = ({ open, onClose }) => {
- 
   const modalRef = useRef<HTMLDivElement>(null);
+  const [messagedCopied, setMessageCopied] = useState(false);
 
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {
@@ -30,19 +30,30 @@ export const ApiTutarialDialog: FC<Props> = ({ open, onClose }) => {
     };
   }, [onClose]);
 
-
   const apiOrigin = useMemo(() => {
-     return typeof window === 'undefined' ? '' : window.location.href
-  }, [])
+    return typeof window === 'undefined' ? '' : window.location.origin;
+  }, []);
+
+  const copyOnClick = () => {
+    if (!navigator.clipboard) return;
+    navigator.clipboard
+      .writeText(
+        `curl -X POST ${apiOrigin}v1/chat/completions \ -H 'accept: application/json' \ -H 'Content-Type: application/json' \-D '${messages}'`,
+      )
+      .then(() => {
+        setMessageCopied(true);
+        setTimeout(() => {
+          setMessageCopied(false);
+        }, 2000);
+      });
+  };
 
   // Render nothing if the dialog is not open.
   if (!open) {
     return <></>;
   }
 
-
-
-  const messages = 
+  const messages =
     '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "Where is Paris?"}]}';
 
   // Render the dialog.
@@ -79,47 +90,46 @@ export const ApiTutarialDialog: FC<Props> = ({ open, onClose }) => {
               the api.openai.com URL in your app with the node's public URL.
             </p>
 
-            
-
             <div className="w-full bg-[#1E1E1E] rounded-lg overflow-hidden mt-8">
               <div className="flex items-center justify-end bg-[#302F2F] w-full h-[38px]">
-                <p
-                  className="flex items-center gap-1 mr-4 cursor-pointer"
-                  onClick={() => {
-                    navigator.clipboard.writeText(
-                      `curl -X POST ${apiOrigin}v1/chat/completions \ -H 'accept: application/json' \ -H 'Content-Type: application/json' \-D '${messages}'`,
-                    );
-                  }}
-                >
-                  <span className="capitalize text-sm">copy</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
+                {messagedCopied ? (
+                  <IconCheck
+                    size={18}
+                    className="text-green-500 dark:text-green-400 mr-4"
+                  />
+                ) : (
+                  <p
+                    className="flex items-center gap-1 mr-4 cursor-pointer"
+                    onClick={copyOnClick}
                   >
-                    <path
-                      d="M10.8889 1.5H5.80952L2 5.19231V12.1667H10.8889V1.5Z"
-                      stroke="white"
-                    />
-                    <path
-                      d="M11.3327 4.16675H13.5549V14.8334H4.66602V12.1667"
-                      stroke="white"
-                    />
-                  </svg>
-                </p>
+                    <span className="capitalize text-sm">copy</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <path
+                        d="M10.8889 1.5H5.80952L2 5.19231V12.1667H10.8889V1.5Z"
+                        stroke="white"
+                      />
+                      <path
+                        d="M11.3327 4.16675H13.5549V14.8334H4.66602V12.1667"
+                        stroke="white"
+                      />
+                    </svg>
+                  </p>
+                )}
               </div>
               <div className="w-full p-5 ">
-                <code>
+                <code className="break-words">
                   curl -X POST {apiOrigin} <br />
                   v1/chat/completions \ <br />
                   &nbsp;&nbsp;-H 'accept: application/json' \<br />
                   &nbsp;&nbsp;-H 'Content-Type: application/json' \<br />
                   &nbsp;&nbsp;-D '{messages}'
                 </code>
-
-        
               </div>
             </div>
           </div>
