@@ -42,6 +42,6 @@ jobs:
           source-directory: 'out'
           destination-github-username: 'GaiaNet-AI'
           destination-repository-name: 'gaianet-dapp'
-          target-directory: 'src/chatbot-ui'
+          target-directory: 'public'
           user-email: juyichen0413@foxmail.com
           target-branch: main
