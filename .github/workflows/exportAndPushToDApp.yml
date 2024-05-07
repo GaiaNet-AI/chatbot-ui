@@ -44,4 +44,4 @@ jobs:
           destination-repository-name: 'gaianet-dapp'
           target-directory: 'public/chatbot-ui'
           user-email: juyichen0413@foxmail.com
-          target-branch: main
+          target-branch: test
