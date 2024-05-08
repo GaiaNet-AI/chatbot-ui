@@ -63,11 +63,16 @@ const SystemNodes: React.FC = () => {
   }, [channelIsDapp]);
 
   useEffect(() => {
-    if (!channelIsDapp) return;
-    if ((api === '' || api === '..') && nodes?.length > 0) {
-      handleApiChange(`https://${nodes[0].subdomain}`);
+    if (typeof window === 'undefined' || !channelIsDapp) return;
+    if (api === '' || api === '..') {
+      const host = window.location.host;
+      if (host === 'gaianet.ai' || host === 'www.gaianet.ai') {
+        handleApiChange(`https://llama3.gaianet.network`);
+      } else {
+        handleApiChange(`https://knowledge.gaianet.xyz`);
+      }
     }
-  }, [api, channelIsDapp, handleApiChange, nodes]);
+  }, [api, channelIsDapp, handleApiChange]);
 
   const renderSystemNodesContent = useMemo(() => {
     return (
