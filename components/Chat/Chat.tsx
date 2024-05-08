@@ -36,6 +36,7 @@ import { ErrorMessageDiv } from './ErrorMessageDiv';
 import { MemoizedChatMessage } from './MemoizedChatMessage';
 import { ModelSelect } from './ModelSelect';
 import { SystemPrompt } from './SystemPrompt';
+import SystemNodes from './SystemNodes'
 
 import cn from 'classnames';
 
@@ -531,9 +532,10 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
             onScroll={handleScroll}
           >
             <div className="sticky z-10 top-0 flex w-full items-center justify-end gap-3 h-[84px] bg-white border-b border-[rgba(0,0,0,0.15)] pr-5">
-              <div className="inline-flex items-center justify-center rounded-lg px-3 h-[44px] text-[13px] bg-white text-black border border-[rgba(0, 0, 0, 0.08)] cursor-pointer hover:border-black transition-all">
+              {/* <div className="inline-flex items-center justify-center rounded-lg px-3 h-[44px] text-[13px] bg-white text-black border border-[rgba(0, 0, 0, 0.08)] cursor-pointer hover:border-black transition-all">
                 <p>{selectedConversation?.model?.id || defaultModelId}</p>
-              </div>
+              </div> */}
+              <SystemNodes />
 
               {selectedConversation?.promptState !== 2 &&
                 selectedConversation && (
