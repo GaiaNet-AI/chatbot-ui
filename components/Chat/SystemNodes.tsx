@@ -14,7 +14,7 @@ import HomeContext from '@/pages/api/home/home.context';
 
 const SystemNodes: React.FC = () => {
   const [tippyInstance, setTippyInstance] = useState<any>(null);
-  const [nodes, setNodes] = useState([]);
+  const [nodes, setNodes] = useState<any[]>([]);
 
   const {
     state: { api, selectedConversation, defaultModelId },
