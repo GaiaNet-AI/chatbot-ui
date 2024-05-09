@@ -45,7 +45,10 @@ export const ChatStream = async (
         body: JSON.stringify({
             model: model.id,
             messages: finalMessage,
-            stream: true
+            stream: true,
+            stream_options: {
+                "include_usage": true
+            }
         }),
     });
     return res.body;
