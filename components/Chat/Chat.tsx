@@ -311,6 +311,11 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
                               },
                             );
                           }
+                          if(obj && obj['usage']){
+                            console.log("prompt:",obj['usage']['prompt_tokens']);
+                            console.log("completion:",obj['usage']['completion_tokens']);
+                            console.log("total:",obj['usage']['total_tokens']);
+                          }
                         }
                       } catch (e) {
                         console.log('error JSON', part);
@@ -499,7 +504,6 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
     };
   }, [messagesEndRef]);
 
-  console.log(selectedConversation?.messages?.length === 0);
   return (
     <div className="relative flex-1 overflow-hidden bg-white">
       {!(apiKey || api) ? (
