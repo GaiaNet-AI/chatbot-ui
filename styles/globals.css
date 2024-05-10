@@ -125,6 +125,11 @@ body {
   bottom: 0;
   margin: auto;
 }
+.ReactMarkdown > ol, ul, menu {
+  list-style: revert;
+  padding: revert;
+  margin: revert;
+}
 
 @media (max-width: 720px) {
   pre {
