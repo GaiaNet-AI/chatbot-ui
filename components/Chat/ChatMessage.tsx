@@ -266,7 +266,7 @@ export const ChatMessage: FC<Props> = memo(
               />
             )}
 
-            <div className="border-b boder-[rgba(0,0,0,.08)] pb-5 flex-1">
+            <div className="border-b boder-[rgba(0,0,0,.08)] pb-5 flex-1 ">
               {message.role === 'user' ? (
                 <div className="flex w-full">
                   {isEditing ? (

@@ -130,6 +130,9 @@ body {
   padding: revert;
   margin: revert;
 }
+.ReactMarkdown pre {
+  max-width: 672px;
+}
 
 @media (max-width: 720px) {
   pre {
