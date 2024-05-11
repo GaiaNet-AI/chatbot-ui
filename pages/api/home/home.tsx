@@ -82,7 +82,6 @@ const Home = ({
             const data = await getModels(
                 {
                     url: api,
-                    // url: "https://law.gaianet.network",
                     key: apiKey,
                 },
             );
