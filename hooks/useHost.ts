@@ -4,6 +4,14 @@ export const dappHosts = [
     apiUrl: 'https://api.gaianet-test.link/',
   },
   {
+    host: 'gaianet-test.link',
+    apiUrl: 'https://api.gaianet-test.link/',
+  },
+  {
+    host: 'www.gaianet-test.link',
+    apiUrl: 'https://api.gaianet-test.link/',
+  },
+  {
     host: 'www.gaianet.ai',
     apiUrl: 'https://api.gaianet.ai/',
   },

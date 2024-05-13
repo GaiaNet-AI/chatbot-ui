@@ -76,7 +76,7 @@ const SystemNodes: React.FC = () => {
 
   const renderSystemNodesContent = useMemo(() => {
     return (
-      <div className="flex flex-col w-[256px] max-h-[270px] bg-white border border-black rounded-lg overflow-hidden ">
+      <div className="flex flex-col w-[288px] max-h-[270px] bg-white border border-black rounded-lg overflow-hidden ">
         <p className="text-black fm-SpaceGrotesk text-sm font-bold px-4 pt-4 pb-1">
           Select a Node
         </p>
@@ -100,7 +100,10 @@ const SystemNodes: React.FC = () => {
                   key={item?.subdomain}
                   onClick={() => handleApiChange(`https://${item?.subdomain}`)}
                 >
-                  <p className="text-[10px] text-[#322221] uppercase ">
+                  <p className="text-[13px] text-[#322221] font-bold">
+                    {item?.chat_model}
+                  </p>
+                  <p className="text-[10px] text-[#322221] uppercase mt-1 ">
                     {item?.subdomain}
                   </p>
                 </div>
