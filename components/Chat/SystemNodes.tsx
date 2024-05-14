@@ -100,11 +100,11 @@ const SystemNodes: React.FC = () => {
                   key={item?.subdomain}
                   onClick={() => handleApiChange(`https://${item?.subdomain}`)}
                 >
-                  <p className="text-[13px] text-[#322221] font-bold">
-                    {item?.chat_model}
+                  <p className="text-[13px] text-[#322221] uppercase font-bold">
+                    {item?.subdomain || '-'}
                   </p>
-                  <p className="text-[10px] text-[#322221] uppercase mt-1 ">
-                    {item?.subdomain}
+                  <p className="text-[10px] text-[#322221]  mt-1 ">
+                    {item?.chat_model || '-'}
                   </p>
                 </div>
               );
@@ -114,6 +114,13 @@ const SystemNodes: React.FC = () => {
       </div>
     );
   }, [channelIsDapp, handleApiChange, nodes]);
+
+  const selectedModelSubdomin = useMemo(() => {
+    if (!api) return;
+    if (api.startsWith('https://')) {
+      return api.split('//')[1];
+    }
+  }, [api]);
 
   return (
     <Tippy
@@ -126,7 +133,12 @@ const SystemNodes: React.FC = () => {
       className="gaianet-tippy"
     >
       <div className="inline-flex items-center justify-center rounded-lg gap-3 px-3 h-[44px] text-[13px] bg-white text-black border border-[rgba(0, 0, 0, 0.08)] cursor-pointer hover:border-black transition-all">
-        <p>{selectedConversation?.model?.id || defaultModelId}</p>
+        <div className="flex flex-col">
+          <p className="text-[13px] leading-[16px] ">
+            {selectedConversation?.model?.id || defaultModelId}
+          </p>
+          <p className="text-[10px] leading-[13px] uppercase mt-[2px]">{selectedModelSubdomin || '-'}</p>
+        </div>
         <IconChevronDown size="18" color="#C0C0C0" />
       </div>
     </Tippy>

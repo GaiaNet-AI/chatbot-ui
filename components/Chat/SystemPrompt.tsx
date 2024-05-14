@@ -197,7 +197,7 @@ export const SystemPrompt: FC<Props> = ({
   const SystemPromptTooltipContent = () => {
     return (
       <div className="flex flex-col w-[285px] p-4 bg-white border border-black rounded-lg ">
-        <p className="text-black fm-SpaceGrotesk text-sm font-bold mb-4">
+        <p className="text-black fm-SpaceGrotesk text-[13px] font-bold mb-4">
           {t('System Prompt')}
         </p>
         <textarea
