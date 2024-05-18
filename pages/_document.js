@@ -10,13 +10,13 @@ export default function Document(props) {
     <Html lang={currentLocale}>
       <Head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta
-          name="apple-mobile-web-app-title"
-          content="GaiaNet"
-        ></meta>
+        <meta name="apple-mobile-web-app-title" content="GaiaNet"></meta>
 
         {/*  Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-YWSGWDNSEV"></script>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-8GHEZFKPY9"
+        ></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -24,7 +24,7 @@ export default function Document(props) {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
           
-            gtag('config', 'G-YWSGWDNSEV');
+            gtag('config', 'G-8GHEZFKPY9');
             `,
           }}
         ></script>
