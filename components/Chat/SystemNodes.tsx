@@ -83,7 +83,7 @@ const SystemNodes: React.FC = () => {
 
         {!channelIsDapp && (
           <a
-            className="text-gray-800 fm-SpaceGrotesk text-xs mb-4 text-d cursor-pointer "
+            className="text-gray-800 fm-SpaceGrotesk text-xs mb-4 text-d cursor-pointer px-4 mt-1 "
             target="_blank"
             href="https://www.gaianet.ai/"
           >

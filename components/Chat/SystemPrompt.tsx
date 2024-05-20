@@ -203,14 +203,6 @@ export const SystemPrompt: FC<Props> = ({
         <textarea
           ref={textareaRef}
           className="w-full resize-none min-h-[150px] max-h-[150px] outline-none rounded-lg border text-xs border-[rgba(0,0,0,.0.15)] bg-transparent p-[10px] text-black "
-          // style={{
-          //   borderColor: `${
-          //     !value && conversation.promptState === 1 ? 'red' : ''
-          //   }`,
-          //   resize: 'none',
-          //   bottom: `${textareaRef?.current?.scrollHeight}px`,
-          //   height: '150px',
-          // }}
           placeholder={
             t(`Enter a prompt or type "/" to select a prompt...`) || ''
           }
