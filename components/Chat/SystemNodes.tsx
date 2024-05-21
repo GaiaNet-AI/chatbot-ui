@@ -15,6 +15,7 @@ import HomeContext from '@/pages/api/home/home.context';
 const SystemNodes: React.FC = () => {
   const [tippyInstance, setTippyInstance] = useState<any>(null);
   const [nodes, setNodes] = useState<any[]>([]);
+  const [searchWords, setSearchWords] = useState('');
 
   const {
     state: { api, selectedConversation, defaultModelId },
@@ -74,6 +75,21 @@ const SystemNodes: React.FC = () => {
     }
   }, [api, channelIsDapp, handleApiChange]);
 
+  const handleSearch = (e: any) => {
+    setSearchWords(e.target.value || '');
+  };
+
+  const nodesOptions = useMemo(() => {
+    if (!searchWords) return nodes;
+
+    return nodes.filter((item) => {
+      return (
+        item?.chat_model?.includes(searchWords) ||
+        item?.subdomain?.includes(searchWords)
+      );
+    });
+  }, [nodes, searchWords]);
+
   const renderSystemNodesContent = useMemo(() => {
     return (
       <div className="flex flex-col w-[288px] max-h-[270px] bg-white border border-black rounded-lg overflow-hidden ">
@@ -92,28 +108,41 @@ const SystemNodes: React.FC = () => {
         )}
 
         {channelIsDapp && (
-          <div className="flex flex-col w-full flex-1  overflow-y-scroll overflow-x-hidden">
-            {nodes?.map((item: any) => {
-              return (
-                <div
-                  className="cursor-pointer w-full px-4 py-[10px] break-words border-b border-[rgba(0,0,0,.08)] bg-white hover:bg-[#f7f7f7] transition-all"
-                  key={item?.subdomain}
-                  onClick={() => handleApiChange(`https://${item?.subdomain}`)}
-                >
-                  <p className="text-[13px] text-[#322221] uppercase font-bold">
-                    {item?.subdomain || '-'}
-                  </p>
-                  <p className="text-[10px] text-[#322221]  mt-1 ">
-                    {item?.chat_model || '-'}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
+          <>
+            <div className="px-4 my-1 w-full">
+              <input
+                type="text"
+                placeholder="Search node"
+                className="w-full h-[36px] px-2 text-xs text-[#322221] fm-SourceCodePro border border-[rgba(0,0,0,.08)] hover:border-[#696868] rounded-[8px] outline-none transition-all focus:border-[#696868] '"
+                onChange={handleSearch}
+              />
+            </div>
+
+            <div className="flex flex-col w-full flex-1  overflow-y-scroll overflow-x-hidden pb-3">
+              {nodesOptions?.map((item: any) => {
+                return (
+                  <div
+                    className="cursor-pointer w-full px-4 py-[10px] break-words border-b border-[rgba(0,0,0,.08)] bg-white hover:bg-[#f7f7f7] transition-all"
+                    key={item?.subdomain}
+                    onClick={() =>
+                      handleApiChange(`https://${item?.subdomain}`)
+                    }
+                  >
+                    <p className="text-[13px] text-[#322221] uppercase font-bold">
+                      {item?.subdomain || '-'}
+                    </p>
+                    <p className="text-[10px] text-[#322221]  mt-1 ">
+                      {item?.chat_model || '-'}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
     );
-  }, [channelIsDapp, handleApiChange, nodes]);
+  }, [channelIsDapp, handleApiChange, nodesOptions]);
 
   const selectedModelSubdomin = useMemo(() => {
     if (!api) return;
@@ -137,7 +166,9 @@ const SystemNodes: React.FC = () => {
           <p className="text-[13px] leading-[16px] ">
             {selectedConversation?.model?.id || defaultModelId}
           </p>
-          <p className="text-[10px] leading-[13px] uppercase mt-[2px]">{selectedModelSubdomin || '-'}</p>
+          <p className="text-[10px] leading-[13px] uppercase mt-[2px]">
+            {selectedModelSubdomin || '-'}
+          </p>
         </div>
         <IconChevronDown size="18" color="#C0C0C0" />
       </div>
