@@ -105,6 +105,7 @@ body {
 .gaianet-tippy {
   background-color: #fff;
   border-radius: 8px;
+  max-width: 500px !important;
 }
 .gaianet-tippy > .tippy-content {
   padding: 0;
