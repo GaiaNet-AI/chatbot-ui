@@ -1,4 +1,4 @@
-import { IconChevronDown,IconSearch } from '@tabler/icons-react';
+import { IconChevronDown, IconSearch } from '@tabler/icons-react';
 import Tippy from '@tippyjs/react';
 import React, {
   useCallback,
@@ -8,6 +8,8 @@ import React, {
   useState,
 } from 'react';
 
+import { useRouter } from 'next/router';
+
 import { dappHosts } from '@/hooks/useHost';
 
 import HomeContext from '@/pages/api/home/home.context';
@@ -16,6 +18,7 @@ const SystemNodes: React.FC = () => {
   const [tippyInstance, setTippyInstance] = useState<any>(null);
   const [nodes, setNodes] = useState<any[]>([]);
   const [searchWords, setSearchWords] = useState('');
+  const { query } = useRouter();
 
   const {
     state: { api, selectedConversation, defaultModelId },
@@ -65,15 +68,19 @@ const SystemNodes: React.FC = () => {
 
   useEffect(() => {
     if (typeof window === 'undefined' || !channelIsDapp) return;
-    if (api === '' || api === '..') {
-      const host = window.location.host;
-      if (host === 'gaianet.ai' || host === 'www.gaianet.ai') {
-        handleApiChange(`https://llama3.gaianet.network`);
-      } else {
-        handleApiChange(`https://knowledge.gaianet.xyz`);
+    if (query?.subdomain) {
+      handleApiChange(`https://${query?.subdomain}`);
+    } else {
+      if (api === '' || api === '..') {
+        const host = window.location.host;
+        if (host === 'gaianet.ai' || host === 'www.gaianet.ai') {
+          handleApiChange(`https://llama3.gaianet.network`);
+        } else {
+          handleApiChange(`https://knowledge.gaianet.xyz`);
+        }
       }
     }
-  }, [api, channelIsDapp, handleApiChange]);
+  }, [api, channelIsDapp, handleApiChange, query?.subdomain]);
 
   const handleSearch = (e: any) => {
     setSearchWords(e.target.value || '');
@@ -110,7 +117,11 @@ const SystemNodes: React.FC = () => {
         {channelIsDapp && (
           <>
             <div className="w-full relative mb-2">
-              <IconSearch size="20" color="#999999" className='absolute top-[10px] left-[9px]' />
+              <IconSearch
+                size="20"
+                color="#999999"
+                className="absolute top-[10px] left-[9px]"
+              />
               <input
                 type="text"
                 placeholder="Search node"
