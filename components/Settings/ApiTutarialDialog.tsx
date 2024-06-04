@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { IconCheck, IconX } from '@tabler/icons-react';
-import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useContext, useEffect, useRef, useState } from 'react';
+import HomeContext from '@/pages/api/home/home.context';
 
 interface Props {
   open: boolean;
@@ -10,6 +11,10 @@ interface Props {
 export const ApiTutarialDialog: FC<Props> = ({ open, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const [messagedCopied, setMessageCopied] = useState(false);
+
+  const {
+    state: { api },
+  } = useContext(HomeContext);
 
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {
@@ -30,15 +35,11 @@ export const ApiTutarialDialog: FC<Props> = ({ open, onClose }) => {
     };
   }, [onClose]);
 
-  const apiOrigin = useMemo(() => {
-    return typeof window === 'undefined' ? '' : window.location.origin;
-  }, []);
-
   const copyOnClick = () => {
     if (!navigator.clipboard) return;
     navigator.clipboard
       .writeText(
-        `curl -X POST ${apiOrigin}v1/chat/completions \ -H 'accept: application/json' \ -H 'Content-Type: application/json' \-D '${messages}'`,
+        `curl -X POST ${api}v1/chat/completions \ -H 'accept: application/json' \ -H 'Content-Type: application/json' \-D '${messages}'`,
       )
       .then(() => {
         setMessageCopied(true);
@@ -124,7 +125,7 @@ export const ApiTutarialDialog: FC<Props> = ({ open, onClose }) => {
               </div>
               <div className="w-full p-5 ">
                 <code className="break-words">
-                  curl -X POST {apiOrigin} <br />
+                  curl -X POST {api} <br />
                   v1/chat/completions \ <br />
                   &nbsp;&nbsp;-H 'accept: application/json' \<br />
                   &nbsp;&nbsp;-H 'Content-Type: application/json' \<br />
