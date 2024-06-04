@@ -55,7 +55,6 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
     };
   }, [onClose]);
 
-  // Render nothing if the dialog is not open.
   if (!open) {
     return <></>;
   }
