@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'export',
-    assetPrefix: 'https://gaianet-ai.github.io/chatbot-ui',
+    assetPrefix: process.env.ASSET_PREFIX ? 'https://gaianet-ai.github.io/chatbot-ui' : "/",
     reactStrictMode: true,
     webpack(config, {isServer, dev}) {
         config.experiments = {

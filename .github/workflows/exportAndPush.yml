@@ -30,8 +30,8 @@ jobs:
 
       - name: Build Project
         run: |
-          yarn build
-          yarn next export
+          yarn build:local
+          yarn export
 
       - name: Clone target repository
         run: git clone https://github.com/GaiaNet-AI/gaianet-node.git
