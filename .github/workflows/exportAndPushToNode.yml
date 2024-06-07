@@ -33,27 +33,26 @@ jobs:
           yarn build:local
           yarn export
 
-      - name: Clone target repository
-        run: git clone https://github.com/GaiaNet-AI/gaianet-node.git
-
-      - name: Copy build files
+      - name: Rename and zip Export
         run: |
-          cd gaianet-node
-          mv ../out/index.html ./dashboard/chatbot-ui
-          mv ../out/*.svg ./dashboard/chatbot-ui
-          mv ../out/*.png ./dashboard/chatbot-ui
-          mv ../out/icons/* ./dashboard/chatbot-ui/icons/
-          mv ../out/*.ico ./dashboard/chatbot-ui
-          cp -r ../out/* ./dashboard/
+            mv out dashboard
+            tar czvf dashboard.tar.gz dashboard
 
-      - name: Commit changes
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          cd gaianet-node
-          git remote set-url --push origin https://JYC0413:$GITHUB_TOKEN@github.com/GaiaNet-AI/gaianet-node.git
-          git config --local user.email "juyichen0413@foxmail.com"
-          git config --global user.name "JYC0413"
-          git add .
-          git commit -m "Build and deploy chatbot-ui"
-          git push
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dashboard.tar.gz
+          asset_name: dashboard.tar.gz
+          asset_content_type: application/zip
