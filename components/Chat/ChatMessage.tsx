@@ -266,7 +266,7 @@ export const ChatMessage: FC<Props> = memo(
               />
             )}
 
-            <div className="border-b boder-[rgba(0,0,0,.08)] pb-5 flex-1">
+            <div className="border-b boder-[rgba(0,0,0,.08)] pb-5 flex-1 ">
               {message.role === 'user' ? (
                 <div className="flex w-full">
                   {isEditing ? (
@@ -431,7 +431,7 @@ export const ChatMessage: FC<Props> = memo(
               ) : (
                 <div className="flex flex-row">
                   <MemoizedReactMarkdown
-                    className="dark:prose-invert flex-1 text-[#222228]"
+                    className="dark:prose-invert flex-1 text-[#222228] ReactMarkdown"
                     remarkPlugins={[remarkGfm, remarkMath]}
                     rehypePlugins={[rehypeMathjax]}
                     components={{

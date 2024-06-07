@@ -197,30 +197,17 @@ export const SystemPrompt: FC<Props> = ({
   const SystemPromptTooltipContent = () => {
     return (
       <div className="flex flex-col w-[285px] p-4 bg-white border border-black rounded-lg ">
-        <p className="text-black fm-SpaceGrotesk text-sm font-bold mb-4">
+        <p className="text-black text-[13px] font-bold mb-4">
           {t('System Prompt')}
         </p>
         <textarea
           ref={textareaRef}
-          className="w-full min-h-[60px] outline-none rounded-lg border text-xs border-[rgba(0,0,0,.0.15)] bg-transparent p-[10px] text-black "
-          style={{
-            borderColor: `${
-              !value && conversation.promptState === 1 ? 'red' : ''
-            }`,
-            resize: 'none',
-            bottom: `${textareaRef?.current?.scrollHeight}px`,
-            maxHeight: '300px',
-            overflow: `${
-              textareaRef.current && textareaRef.current.scrollHeight > 400
-                ? 'auto'
-                : 'hidden'
-            }`,
-          }}
+          className="w-full resize-none min-h-[150px] max-h-[150px] outline-none rounded-lg border text-xs border-[rgba(0,0,0,.0.15)] bg-transparent p-[10px] text-black "
           placeholder={
             t(`Enter a prompt or type "/" to select a prompt...`) || ''
           }
           value={value || ''}
-          rows={1}
+          rows={3}
           onChange={handleChange}
           // onKeyDown={handleKeyDown}
         />
@@ -260,7 +247,7 @@ export const SystemPrompt: FC<Props> = ({
         onCreate={(instance) => setTippyInstance(instance)}
         className="gaianet-tippy"
       >
-        <div className="inline-flex items-center justify-center gap-5 rounded-lg px-3 h-[44px] text-[13px] bg-white text-black border border-[rgba(0, 0, 0, 0.08)] cursor-pointer hover:border-black transition-all">
+        <div className="inline-flex items-center justify-center gap-3 rounded-lg px-3 h-[44px] text-[13px] bg-white text-black border border-[rgba(0, 0, 0, 0.08)] cursor-pointer hover:border-black transition-all">
           <p>{t('System Prompt')}</p>
           <IconChevronDown size="18" color="#C0C0C0" />
         </div>

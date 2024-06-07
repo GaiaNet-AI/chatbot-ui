@@ -4,6 +4,8 @@ import { FC, useContext, useEffect, useRef, useState } from 'react';
 
 import HomeContext from '@/pages/api/home/home.context';
 
+import { Loading } from '@/components/Loading';
+
 interface Props {
   open: boolean;
   onClose: () => void;
@@ -13,6 +15,7 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const [nodeInfo, setNodeInfo] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const {
     state: { api },
@@ -20,12 +23,17 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
 
   useEffect(() => {
     if (!open) return;
+    setLoading(true);
     fetch(`${api}/config_pub.json`)
       .then((response) => response.json())
       .then((data) => {
         setNodeInfo(data);
+        setLoading(false);
       })
-      .catch((error) => console.error('Error fetching JSON:', error));
+      .catch((error) => {
+        setLoading(false);
+        console.error('Error fetching JSON:', error);
+      });
   }, [api, open]);
 
   useEffect(() => {
@@ -47,7 +55,6 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
     };
   }, [onClose]);
 
-  // Render nothing if the dialog is not open.
   if (!open) {
     return <></>;
   }
@@ -75,96 +82,106 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
               }}
             />
 
-            <div className="flex item-center h-[38px] border-b border-[rgba(0,0,0,.08)]">
-              <p className="font-bold text-black fm-SpaceGrotesk text-base lg:text-lg w-[200px]">
-                Attribute
-              </p>
-              <p className="font-bold text-black fm-SpaceGrotesk text-base lg:text-lg flex-1">
-                Value
-              </p>
-            </div>
-            <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
-                Node ID or address
-              </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
-                {nodeInfo?.address || '-'}
-              </p>
-            </div>
-            <div className="flex item-center  flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
-                GaiaNet domain
-              </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
-                {nodeInfo?.domain || '-'}
-              </p>
-            </div>
-            <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
-                Public URL
-              </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
-                {nodeInfo?.address && nodeInfo?.domain
-                  ? `https://${nodeInfo?.address}.${nodeInfo?.domain}`
-                  : '-'}
-              </p>
-            </div>
+            {loading ? (
+              <div className="w-full min-h-[280px] flex items-center justify-center">
+                <Loading />
+              </div>
+            ) : (
+              <>
+                <div className="flex item-center h-[38px] border-b border-[rgba(0,0,0,.08)]">
+                  <p className="font-bold text-black fm-SpaceGrotesk text-base lg:text-lg w-[200px]">
+                    Attribute
+                  </p>
+                  <p className="font-bold text-black fm-SpaceGrotesk text-base lg:text-lg flex-1">
+                    Value
+                  </p>
+                </div>
+                <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
+                  <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0 ">
+                    Node ID
+                  </p>
+                  <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
+                    {nodeInfo?.address || '-'}
+                  </p>
+                </div>
+                <div className="flex item-center  flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
+                  <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
+                    GaiaNet Domain
+                  </p>
+                  <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
+                    {nodeInfo?.domain || '-'}
+                  </p>
+                </div>
+                <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
+                  <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
+                    Subdomain
+                  </p>
+                  <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
+                    {nodeInfo?.address && nodeInfo?.domain
+                      ? `https://${nodeInfo?.address}.${nodeInfo?.domain}`
+                      : '-'}
+                  </p>
+                </div>
 
-            <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
-                Description
-              </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
-                {nodeInfo?.description || '-'}
-              </p>
-            </div>
+                <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
+                  <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
+                    Description
+                  </p>
+                  <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
+                    {nodeInfo?.description || '-'}
+                  </p>
+                </div>
 
-            <div className="flex item-center flex-col lg:flex-row  min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
-                Finetuned LLM
-              </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
-                {nodeInfo?.chat ? nodeInfo?.chat.split('/').pop() : '-'}
-              </p>
-            </div>
+                <div className="flex item-center flex-col lg:flex-row  min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
+                  <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0 ">
+                    Fine-tuned LLM
+                  </p>
+                  <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
+                    {nodeInfo?.chat ? nodeInfo?.chat.split('/').pop() : '-'}
+                  </p>
+                </div>
 
-            <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
-                System prompt
-              </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
-                {nodeInfo?.system_prompt || '-'}
-              </p>
-            </div>
+                <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
+                  <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
+                    System Prompt
+                  </p>
+                  <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
+                    {nodeInfo?.system_prompt || '-'}
+                  </p>
+                </div>
 
-            <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
-                Embedding model for knowledge vectors
-              </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
-                {nodeInfo?.embedding
-                  ? nodeInfo?.embedding.split('/').pop()
-                  : '-'}
-              </p>
-            </div>
+                <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
+                  <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
+                    Embedding Model
+                  </p>
+                  <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
+                    {nodeInfo?.embedding
+                      ? nodeInfo?.embedding.split('/').pop()
+                      : '-'}
+                  </p>
+                </div>
 
-            <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
-                Knowledge base
-              </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
-                {nodeInfo?.snapshot ? nodeInfo?.snapshot.split('/').pop() : '-'}
-              </p>
-            </div>
+                <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#ffffff] py-3">
+                  <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
+                    Knowledge Base
+                  </p>
+                  <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
+                    {nodeInfo?.snapshot
+                      ? nodeInfo?.snapshot.split('/').pop()
+                      : '-'}
+                  </p>
+                </div>
 
-            <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
-              <p className="text-[#555555] text-xs w-[200px] pl-3 ">
-                RAG prompt
-              </p>
-              <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0">
-                {nodeInfo?.rag_prompt || '-'}
-              </p>
-            </div>
+                <div className="flex item-center flex-col lg:flex-row min-h-[38px] border-b border-[rgba(0,0,0,.08)] bg-[#F7F7F7] py-3">
+                  <p className="text-[#555555] text-xs w-[200px] pl-3 flex-shrink-0">
+                    RAG Prompt
+                  </p>
+                  <p className="text-[#555555] text-xs flex-1 pl-3 lg:pl-0 mt-1 lg:mt-0 break-all">
+                    {nodeInfo?.rag_prompt || '-'}
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

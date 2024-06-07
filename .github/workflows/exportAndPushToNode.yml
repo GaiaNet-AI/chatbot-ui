@@ -1,4 +1,4 @@
-name: Release
+name: to node
 on:
   push:
     branches: [ "main" ]
@@ -40,7 +40,11 @@ jobs:
         run: |
           cd gaianet-node
           mv ../out/index.html ./dashboard/chatbot-ui
-          cp -r ../out/* ./dashboard
+          mv ../out/*.svg ./dashboard/chatbot-ui
+          mv ../out/*.png ./dashboard/chatbot-ui
+          mv ../out/icons/* ./dashboard/chatbot-ui/icons/
+          mv ../out/*.ico ./dashboard/chatbot-ui
+          cp -r ../out/* ./dashboard/
 
       - name: Commit changes
         env:

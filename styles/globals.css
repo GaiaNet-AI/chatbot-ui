@@ -104,6 +104,8 @@ body {
 
 .gaianet-tippy {
   background-color: #fff;
+  border-radius: 8px;
+  max-width: 500px !important;
 }
 .gaianet-tippy > .tippy-content {
   padding: 0;
@@ -124,6 +126,14 @@ body {
   right: 0;
   bottom: 0;
   margin: auto;
+}
+.ReactMarkdown > ol, ul, menu {
+  list-style: revert;
+  padding: revert;
+  margin: revert;
+}
+.ReactMarkdown pre {
+  max-width: 672px;
 }
 
 @media (max-width: 720px) {
