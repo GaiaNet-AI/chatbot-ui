@@ -74,7 +74,7 @@ const SystemNodes: React.FC = () => {
       if (api === '' || api === '..') {
         const host = window.location.host;
         if (host === 'gaianet.ai' || host === 'www.gaianet.ai') {
-          handleApiChange(`https://llama3.gaianet.network`);
+          handleApiChange(`https://knowledge.gaianet.network`);
         } else {
           handleApiChange(`https://knowledge.gaianet.xyz`);
         }
