@@ -24,3 +24,9 @@ export const dappHosts = [
     apiUrl: 'https://api.gaianet-test.link/',
   },
 ];
+
+export const useChannelIsPortal = () => {
+  if (typeof window === 'undefined') return false;
+  const host = window.location.host;
+  if (dappHosts.find((item) => item?.host === host)) return true;
+};

@@ -8,8 +8,6 @@ import React, {
   useState,
 } from 'react';
 
-import { useRouter } from 'next/router';
-
 import { dappHosts } from '@/hooks/useHost';
 
 import HomeContext from '@/pages/api/home/home.context';
@@ -18,10 +16,9 @@ const SystemNodes: React.FC = () => {
   const [tippyInstance, setTippyInstance] = useState<any>(null);
   const [nodes, setNodes] = useState<any[]>([]);
   const [searchWords, setSearchWords] = useState('');
-  const { query } = useRouter();
 
   const {
-    state: { api, selectedConversation, defaultModelId },
+    state: { api, selectedConversation, modelError },
     dispatch: homeDispatch,
   } = useContext(HomeContext);
 
@@ -65,22 +62,6 @@ const SystemNodes: React.FC = () => {
     if (!channelIsDapp) return;
     fetchNodes();
   }, [channelIsDapp]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !channelIsDapp) return;
-    if (query?.subdomain) {
-      handleApiChange(`https://${query?.subdomain}`);
-    } else {
-      if (api === '' || api === '..') {
-        const host = window.location.host;
-        if (host === 'gaianet.ai' || host === 'www.gaianet.ai') {
-          handleApiChange(`https://knowledge.gaianet.network`);
-        } else {
-          handleApiChange(`https://knowledge.gaianet.xyz`);
-        }
-      }
-    }
-  }, [api, channelIsDapp, handleApiChange, query?.subdomain]);
 
   const handleSearch = (e: any) => {
     setSearchWords(e.target.value || '');
@@ -173,13 +154,13 @@ const SystemNodes: React.FC = () => {
       onCreate={(instance) => setTippyInstance(instance)}
       className="gaianet-tippy"
     >
-      <div className="inline-flex items-center justify-between rounded-lg gap-3 px-3 w-[405px] h-[44px] text-[13px] bg-white text-black border border-[rgba(0, 0, 0, 0.08)] cursor-pointer hover:border-black transition-all">
+      <div className="inline-flex items-center justify-between rounded-lg gap-3 px-3 w-auto md:min-w-[405px] h-[44px] text-[13px] bg-white text-black border border-[rgba(0, 0, 0, 0.08)] cursor-pointer hover:border-black transition-all">
         <div className="flex flex-col">
           <p className="text-[13px] leading-[16px] ">
             {selectedModelSubdomin || '-'}
           </p>
           <p className="text-[10px] leading-[13px] uppercase mt-[2px] text-[#888888]">
-            {selectedConversation?.model?.id || defaultModelId}
+            {modelError ? '-' : selectedConversation?.model?.id}
           </p>
         </div>
         <IconChevronDown size="18" color="#C0C0C0" />
