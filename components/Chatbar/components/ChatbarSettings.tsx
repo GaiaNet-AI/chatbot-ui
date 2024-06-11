@@ -15,6 +15,7 @@ import { QueryUrl } from '../../Settings/QueryUrl';
 import { SidebarButton } from '../../Sidebar/SidebarButton';
 import ChatbarContext from '../Chatbar.context';
 import { ClearConversations } from './ClearConversations';
+import LoginDialog from '@/components/User/LoginDialog'
 
 export const ChatbarSettings = () => {
   const { t } = useTranslation('sidebar');
@@ -73,6 +74,8 @@ export const ChatbarSettings = () => {
         icon={<IconSettings size={18} />}
         onClick={() => setIsSettingDialog(true)}
       />
+
+
 
       <div className="w-full flex items-center justify-center gap-3 border-t border-[rgb(229, 231, 235))] py-5">
         <div
@@ -161,6 +164,7 @@ export const ChatbarSettings = () => {
           setIsNodeInfoDialogOpen(false);
         }}
       />
+      <LoginDialog />
     </div>
   );
 };
