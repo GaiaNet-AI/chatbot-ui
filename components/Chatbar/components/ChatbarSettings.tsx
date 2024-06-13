@@ -15,7 +15,6 @@ import { QueryUrl } from '../../Settings/QueryUrl';
 import { SidebarButton } from '../../Sidebar/SidebarButton';
 import ChatbarContext from '../Chatbar.context';
 import { ClearConversations } from './ClearConversations';
-import LoginDialog from '@/components/User/LoginDialog'
 
 export const ChatbarSettings = () => {
   const { t } = useTranslation('sidebar');
@@ -164,7 +163,6 @@ export const ChatbarSettings = () => {
           setIsNodeInfoDialogOpen(false);
         }}
       />
-      <LoginDialog />
     </div>
   );
 };

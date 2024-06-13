@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { IconFolderPlus, IconMistOff, IconPlus } from '@tabler/icons-react';
-import { ReactNode, useMemo } from 'react';
+import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { dappHosts } from '@/hooks/useHost';
 
 import {
   CloseSidebarButton,
@@ -59,16 +57,6 @@ const Sidebar = <T,>({
     e.target.style.background = 'none';
   };
 
-  const channelIsDapp = useMemo(() => {
-    if (typeof window === 'undefined') return false;
-    const host = window.location.host;
-    if (dappHosts.find((item) => item?.host === host)) return true;
-  }, []);
-
-  const handleClickLogo = () => {
-    if (channelIsDapp) window.location.href = '/';
-  };
-
   return isOpen ? (
     <div>
       <div
@@ -76,12 +64,13 @@ const Sidebar = <T,>({
       >
         <div className="w-full flex-1 flex flex-col pt-[29px] overflow-auto">
           <div className="px-4 ">
-            <img
-              className="w-40 h-10 mx-auto cursor-pointer"
-              src={'./GaiaNet-black.svg'}
-              alt=""
-              onClick={handleClickLogo}
-            />
+            <a href="https://www.gaianet.ai/" target="_blank">
+              <img
+                className="w-40 h-10 mx-auto cursor-pointer"
+                src={'./GaiaNet-black.svg'}
+                alt=""
+              />
+            </a>
 
             <div className="flex items-center justify-between mt-8 ">
               <div className="group">
