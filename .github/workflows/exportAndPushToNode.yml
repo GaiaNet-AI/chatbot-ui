@@ -2,6 +2,8 @@ name: to node
 on:
   push:
     branches: [ "main" ]
+    tags:
+      - '*'
 
 jobs:
   build:
@@ -30,13 +32,19 @@ jobs:
 
       - name: Build Project
         run: |
-          yarn build:local
+          yarn build
           yarn export
 
       - name: Rename and zip Export
         run: |
-            mv out dashboard
-            tar czvf dashboard.tar.gz dashboard
+          mkdir -p dashboard
+          mv out dashboard/chatbot-ui
+          cd dashboard/chatbot-ui
+          mv _next ../
+          mv fonts ../
+          cd ../../
+          mv public/dashboard/index.html dashboard
+          tar czvf dashboard.tar.gz dashboard
 
       - name: Create Release
         id: create_release
@@ -53,6 +61,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dashboard.tar.gz
+          asset_path: dashboard.tar.gz
           asset_name: dashboard.tar.gz
           asset_content_type: application/zip
