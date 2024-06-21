@@ -1,8 +1,7 @@
-const {i18n} = require('./next-i18next.config');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'export',
+    assetPrefix: process.env.ASSET_PREFIX ? 'https://gaianet-ai.github.io/chatbot-ui' : "/",
     reactStrictMode: true,
     webpack(config, {isServer, dev}) {
         config.experiments = {

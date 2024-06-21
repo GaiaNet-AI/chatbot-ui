@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:local": "cross-env ASSET_PREFIX=true yarn build",
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
