@@ -148,7 +148,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
           });
           saveConversations(updatedConversations);
           if (!queryDoneRef.current) {
-            await delay(textListRef.current.length > 10 ? 300 : 100);
+            // await delay(textListRef.current.length > 10 ? 300 : 100);
           } else {
             // await delay(20)
           }
