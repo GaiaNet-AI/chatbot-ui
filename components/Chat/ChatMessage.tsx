@@ -26,9 +26,8 @@ import HomeContext from '@/pages/api/home/home.context';
 import { CodeBlock } from '../Markdown/CodeBlock';
 import { MemoizedReactMarkdown } from '../Markdown/MemoizedReactMarkdown';
 
-import rehypeMathjax from 'rehype-mathjax';
+import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math';
 
 export interface Props {
   message: Message;
@@ -245,6 +244,14 @@ export const ChatMessage: FC<Props> = memo(
       });
     };
 
+      function replaceMathDelimiters(input: string): string {
+          const pattern = /\$\$(.*?)\$\$/g;
+          const replacer = (_: string, group: string) => {
+              return "```math\n" + group + "\n```";
+          };
+          return input.replace(pattern, replacer);
+      }
+
     return (
       <div
         className={`group md:px-4 bg-white text-gray-800 `}
@@ -432,8 +439,9 @@ export const ChatMessage: FC<Props> = memo(
                 <div className="flex flex-row">
                   <MemoizedReactMarkdown
                     className="dark:prose-invert flex-1 text-[#222228] ReactMarkdown"
-                    remarkPlugins={[remarkGfm, remarkMath]}
-                    rehypePlugins={[[rehypeMathjax, { delimiters: 'dollars' }]]}
+                    remarkPlugins={[remarkGfm]}
+                    //@ts-ignore
+                    rehypePlugins={[rehypeKatex]}
                     components={{
                       code({ node, inline, className, children, ...props }) {
                         if (children.length) {
@@ -489,7 +497,7 @@ export const ChatMessage: FC<Props> = memo(
                       },
                     }}
                   >
-                    {`${message.content}${
+                    {`${replaceMathDelimiters(message.content as string)}${
                       messageIsStreaming &&
                       messageIndex ==
                         (selectedConversation?.messages.length ?? 0) - 1
