@@ -433,7 +433,7 @@ export const ChatMessage: FC<Props> = memo(
                   <MemoizedReactMarkdown
                     className="dark:prose-invert flex-1 text-[#222228] ReactMarkdown"
                     remarkPlugins={[remarkGfm, remarkMath]}
-                    rehypePlugins={[rehypeMathjax]}
+                    rehypePlugins={[[rehypeMathjax, { delimiters: 'dollars' }]]}
                     components={{
                       code({ node, inline, className, children, ...props }) {
                         if (children.length) {
