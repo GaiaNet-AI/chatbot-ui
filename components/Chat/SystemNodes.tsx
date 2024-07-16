@@ -156,7 +156,7 @@ const SystemNodes: React.FC = () => {
     >
       <div className="inline-flex items-center justify-between rounded-lg gap-3 px-3 w-auto md:min-w-[405px] h-[44px] text-[13px] bg-white text-black border border-[rgba(0, 0, 0, 0.08)] cursor-pointer hover:border-black transition-all">
         <div className="flex flex-col">
-          <p className="text-[13px] leading-[16px] ">
+          <p className="text-[13px] truncate leading-[16px] ">
             {selectedModelSubdomin || '-'}
           </p>
           <p className="text-[10px] leading-[13px] uppercase mt-[2px] text-[#888888]">
