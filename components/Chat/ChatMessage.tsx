@@ -257,8 +257,8 @@ export const ChatMessage: FC<Props> = memo(
         className={`group md:px-4 bg-white text-gray-800 `}
         style={{ overflowWrap: 'anywhere' }}
       >
-        <div className="relative m-auto flex p-4 text-base md:max-w-2xl md:gap-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
-          <div className="mx-2 flex w-full   bg-white sm:mx-4 gap-6">
+        <div className="relative flex p-4 m-auto text-base md:max-w-2xl md:gap-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
+          <div className="flex w-full gap-6 mx-2 bg-white sm:mx-4">
             {message.role === 'assistant' ? (
               <img
                 style={{ width: '32px', height: '32px' }}
@@ -277,10 +277,10 @@ export const ChatMessage: FC<Props> = memo(
               {message.role === 'user' ? (
                 <div className="flex w-full">
                   {isEditing ? (
-                    <div className="flex w-full flex-col">
+                    <div className="flex flex-col w-full">
                       <textarea
                         ref={textareaRef}
-                        className="w-full resize-none whitespace-pre-wrap border-none dark:bg-[#343541]"
+                        className="w-full whitespace-pre-wrap bg-white border-none resize-none"
                         value={messageContent}
                         onChange={handleInputChange}
                         onKeyDown={handlePressEnter}
@@ -381,7 +381,7 @@ export const ChatMessage: FC<Props> = memo(
                         </div>
                       </div>
 
-                      <div className="mt-10 flex justify-center space-x-4">
+                      <div className="flex justify-center mt-10 space-x-4">
                         <button
                           className="h-[40px] rounded-md bg-blue-500 px-4 py-1 text-sm font-medium text-white enabled:hover:bg-blue-600 disabled:opacity-50"
                           onClick={handleEditMessage}
@@ -419,7 +419,7 @@ export const ChatMessage: FC<Props> = memo(
                   )}
 
                   {!isEditing && (
-                    <div className="md:-mr-8 ml-1 md:ml-0 flex flex-col md:flex-row gap-4 md:gap-1 items-center md:items-start justify-end md:justify-start">
+                    <div className="flex flex-col items-center justify-end gap-4 ml-1 md:-mr-8 md:ml-0 md:flex-row md:gap-1 md:items-start md:justify-start">
                       <button
                         className="invisible group-hover:visible focus:visible text-gray-500 hover:text-[#322221] "
                         onClick={toggleEditing}
@@ -447,7 +447,7 @@ export const ChatMessage: FC<Props> = memo(
                         if (children.length) {
                           if (children[0] == '▍') {
                             return (
-                              <span className="animate-pulse cursor-default mt-1">
+                              <span className="mt-1 cursor-default animate-pulse">
                                 ▍
                               </span>
                             );
@@ -476,21 +476,21 @@ export const ChatMessage: FC<Props> = memo(
                       },
                       table({ children }) {
                         return (
-                          <table className="border-collapse border border-black px-3 py-1 ">
+                          <table className="px-3 py-1 border border-collapse border-black ">
                             {children}
                           </table>
                         );
                       },
                       th({ children }) {
                         return (
-                          <th className="break-words border border-black  px-3 py-1 text-white ">
+                          <th className="px-3 py-1 text-white break-words border border-black ">
                             {children}
                           </th>
                         );
                       },
                       td({ children }) {
                         return (
-                          <td className="break-words border border-black px-3 py-1 ">
+                          <td className="px-3 py-1 break-words border border-black ">
                             {children}
                           </td>
                         );
@@ -505,7 +505,7 @@ export const ChatMessage: FC<Props> = memo(
                         : ''
                     }`}
                   </MemoizedReactMarkdown>
-                  <div className="md:-mr-8 ml-1 md:ml-0 flex flex-col md:flex-row gap-4 md:gap-1 items-center md:items-start justify-end md:justify-start">
+                  <div className="flex flex-col items-center justify-end gap-4 ml-1 md:-mr-8 md:ml-0 md:flex-row md:gap-1 md:items-start md:justify-start">
                     <button
                       className="invisible group-hover:visible focus:visible text-gray-500 hover:text-[#322221]"
                       onClick={onRegenerate}
