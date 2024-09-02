@@ -212,7 +212,7 @@ export const SystemPrompt: FC<Props> = ({
           // onKeyDown={handleKeyDown}
         />
         {error && (
-          <div className="text-xs text-[#D43327] mt-1">
+          <div className="text-xs text-[#1c1f23] mt-1">
             The prompt of this model cannot be empty!
           </div>
         )}
@@ -226,7 +226,7 @@ export const SystemPrompt: FC<Props> = ({
             default
           </div> */}
           <div
-            className="inline-flex px-3 py-[6px] capitalize rounded border border-[#D43327] cursor-pointer fm-SpaceMono text-xs text-white bg-[#D43327] leading-5"
+            className="inline-flex px-3 py-[6px] capitalize rounded border border-[#1c1f23] cursor-pointer fm-SpaceMono text-xs text-white bg-[#1c1f23] leading-5"
             onClick={() => handelSave()}
           >
             save

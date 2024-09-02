@@ -504,7 +504,7 @@ const Home = ({
           name="viewport"
           content="height=device-height ,width=device-width, initial-scale=1, user-scalable=no"
         />
-        <link rel="icon" href="./favicon.png" />
+        <link rel="icon" href="https://www.gaianet.ai/favicon.ico" />
       </Head>
       {selectedConversation && (
         <main

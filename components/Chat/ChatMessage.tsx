@@ -261,8 +261,8 @@ export const ChatMessage: FC<Props> = memo(
           <div className="mx-2 flex w-full   bg-white sm:mx-4 gap-6">
             {message.role === 'assistant' ? (
               <img
-                style={{ width: '32px', height: '32px' }}
-                src={'./icons/icon-bot.svg'}
+                style={{ width: '28px', height: '28px', margin: '2px' }}
+                src="https://www.gaianet.ai/images/footer-logo.png"
                 alt=""
               />
             ) : (

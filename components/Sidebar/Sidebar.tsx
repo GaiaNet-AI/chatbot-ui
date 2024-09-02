@@ -66,8 +66,8 @@ const Sidebar = <T,>({
           <div className="px-4 ">
             <a href="https://www.gaianet.ai/" target="_blank">
               <img
-                className="w-40 h-10 mx-auto cursor-pointer"
-                src={'./GaiaNet-black.svg'}
+                className="w-40 mx-auto cursor-pointer"
+                src="https://www.gaianet.ai/images/logo-dark.png"
                 alt=""
               />
             </a>
@@ -77,7 +77,7 @@ const Sidebar = <T,>({
                 <button
                   disabled={!canCreateChat}
                   className={
-                    'flex w-[202px] h-[42px] flex-shrink-0 select-none items-center text-base justify-center gap-1 bg-[#F7F7F7]  group-hover:bg-[#D43327] font-bold rounded text-[#D43327] group-hover:text-[#ffffff] transition-colors duration-200 uppercase fm-SpaceGrotesk ' +
+                    'flex w-[202px] h-[42px] flex-shrink-0 select-none items-center text-base justify-center gap-1 bg-[#F7F7F7]  group-hover:bg-[#1c1f23] font-bold rounded text-[#1c1f23] group-hover:text-[#ffffff] transition-colors duration-200 uppercase fm-SpaceGrotesk ' +
                     (canCreateChat ? 'cursor-pointer' : 'cursor-not-allowed')
                   }
                   onClick={() => {
@@ -87,7 +87,7 @@ const Sidebar = <T,>({
                 >
                   <IconPlus
                     size={16}
-                    className="text-[#D43327] group-hover:text-[#ffffff]"
+                    className="text-[#1c1f23] group-hover:text-[#ffffff]"
                   />
                   {addItemButtonTitle}
                 </button>
@@ -97,7 +97,7 @@ const Sidebar = <T,>({
                 <button
                   disabled={!canCreateChat}
                   className={
-                    'flex flex-shrink-0 items-center justify-center rounded w-[42px] h-[42px] transition-colors duration-200 bg-[#F5F5F5] group-hover:bg-[#D43327] ' +
+                    'flex flex-shrink-0 items-center justify-center rounded w-[42px] h-[42px] transition-colors duration-200 bg-[#F5F5F5] group-hover:bg-[#1c1f23] ' +
                     (canCreateChat ? 'cursor-pointer' : 'cursor-not-allowed')
                   }
                   onClick={handleCreateFolder}

@@ -83,7 +83,7 @@ export const ChatbarSettings = () => {
             window.open('https://twitter.com/gaianet_ai', '_blank')
           }
         >
-          <div className="flex items-center justify-center w-[36px] h-[36px] rounded-[18px] border border-[#322221] cursor-pointer bg-white group-hover:bg-[#D43327] transition-all ">
+          <div className="flex items-center justify-center w-[36px] h-[36px] rounded-[18px] border border-[#322221] cursor-pointer bg-white group-hover:bg-[#1c1f23] transition-all ">
             <img
               style={{ width: '18px', height: '18px' }}
               src={'./icons/twitter.svg'}
@@ -102,7 +102,7 @@ export const ChatbarSettings = () => {
           className="group"
           onClick={() => window.open('https://github.com/GaiaNet-AI', '_blank')}
         >
-          <div className="flex items-center justify-center w-[36px] h-[36px] rounded-[18px] border border-[#322221] cursor-pointer bg-white group-hover:bg-[#D43327] transition-all ">
+          <div className="flex items-center justify-center w-[36px] h-[36px] rounded-[18px] border border-[#322221] cursor-pointer bg-white group-hover:bg-[#1c1f23] transition-all ">
             <img
               style={{ width: '18px', height: '18px' }}
               src={'./icons/github.svg'}
@@ -123,7 +123,7 @@ export const ChatbarSettings = () => {
             window.open('https://huggingface.co/gaianet', '_blank')
           }
         >
-          <div className="flex items-center justify-center w-[36px] h-[36px] rounded-[18px] border border-[#322221] cursor-pointer bg-white group-hover:bg-[#D43327] transition-all ">
+          <div className="flex items-center justify-center w-[36px] h-[36px] rounded-[18px] border border-[#322221] cursor-pointer bg-white group-hover:bg-[#1c1f23] transition-all ">
             <img
               style={{ width: '18px', height: '18px' }}
               src={'./icons/huggingface.svg'}

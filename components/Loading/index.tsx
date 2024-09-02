@@ -7,7 +7,7 @@ export const Loading = () => {
         .gaianetLoader {
           width: 36px;
           height: 36px;
-          border: 3px solid #d43327;
+          border: 3px solid #1c1f23;
           border-bottom-color: transparent;
           border-radius: 50%;
           display: inline-block;
