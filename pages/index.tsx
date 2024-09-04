@@ -1,1 +1,1 @@
-export {default, getStaticProps} from './api/home';
+export {default} from './api/home';
