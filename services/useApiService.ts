@@ -30,7 +30,7 @@ const useApiService = () => {
     // );
 
     const getModels = async (params: GetModelsRequestProps) => {
-        let url = `${params.url}/v1/models`;
+        let url = `/v1/models`;
         const response = await fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
@@ -46,15 +46,12 @@ const useApiService = () => {
         //     id: "Llama-2-13B:llama-2-chat", "created": 1699511491, "object": "model", "owned_by": "Not specified"
         // }]
         if (data && data.length > 0) {
-            return data.map(item => {
-                if (item.id.indexOf(":") !== -1 && !item.name) {
-                    item.name = item.id.split(":")[1]
-                    item.id = item.id.split(":")[0]
-                }
-                return item
-            })
+            return {
+                name: data[0]["id"],
+                subdomain: params.url
+            }
         } else {
-            return []
+            return {}
         }
     }
 

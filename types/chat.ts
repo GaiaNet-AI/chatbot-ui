@@ -20,20 +20,26 @@ export type Type = 'text' | 'image_url';
 export type Role = 'assistant' | 'user';
 
 export interface ChatBody {
-    model: OpenAIModel;
+    node: SelectedNode;
     messages: Message[];
     key: string;
     prompt: string;
     temperature: number;
 }
 
+export interface SelectedNode {
+    name: string;
+    subdomain: string;
+}
+
 export interface Conversation {
     id: string;
     name: string;
     messages: Message[];
-    model: OpenAIModel;
+    model?: OpenAIModel;
     prompt: string;
     promptState: number;
     temperature: number;
     folderId: string | null;
+    node: SelectedNode;
 }

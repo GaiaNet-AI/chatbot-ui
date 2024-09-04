@@ -17,14 +17,10 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
   const [nodeInfo, setNodeInfo] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
 
-  const {
-    state: { api },
-  } = useContext(HomeContext);
-
   useEffect(() => {
     if (!open) return;
     setLoading(true);
-    fetch(`${api}/config_pub.json`)
+    fetch(`/config_pub.json`)
       .then((response) => response.json())
       .then((data) => {
         setNodeInfo(data);
@@ -34,7 +30,7 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
         setLoading(false);
         console.error('Error fetching JSON:', error);
       });
-  }, [api, open]);
+  }, [open]);
 
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {

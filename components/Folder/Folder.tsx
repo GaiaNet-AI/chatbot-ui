@@ -143,7 +143,7 @@ const Folder = ({
                 />
               )}
 
-              <div className="relative max-h-5 flex-1 overflow-hidden text-ellipsis uppercase whitespace-nowrap text-[#000000] font-bold break-all text-left text-[13px] leading-5 fm-SpaceGrotesk bg-white">
+              <div className="relative max-h-5 flex-1 overflow-hidden text-ellipsis uppercase whitespace-nowrap text-[#000000] font-bold break-all text-left text-[13px] leading-5 fm-SpaceGrotesk bg-fontLight">
                 {currentFolder.name}
               </div>
             </button>

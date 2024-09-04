@@ -1,147 +1,362 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+    .typography-header-xl {
+        @apply font-StyreneA text-[48px] leading-[52px] tracking-[-3.84px] md:text-[80px] md:leading-none md:tracking-[-6.4px] xl:text-[110px] xl:leading-none xl:tracking-[-8.8px] text-fontPrimary;
+    }
+
+    .typography-header-l {
+        @apply font-StyreneA text-[44px] leading-[78px] tracking-[-3.52px] md:text-[96px] md:leading-[170px] md:tracking-[-7px] text-fontPrimary;
+    }
+
+    .typography-header-m {
+        @apply font-StyreneA text-[40px] leading-[40px] tracking-[-3.2px] md:text-[88px] md:leading-[86px] md:tracking-[-6px] text-fontPrimary;
+    }
+
+    .typography-header-1 {
+        @apply font-StyreneA text-[42px] leading-[48px] tracking-[-1.26px] md:text-[64px] md:leading-[68px] md:tracking-[-2.56px] xl:text-[72px] xl:leading-[80px] xl:tracking-[-5.76px] text-fontPrimary;
+    }
+
+    .typography-header-2 {
+        @apply font-StyreneA text-[34px] leading-[38px] tracking-[-0.68px] md:text-[44px] md:leading-[52px] md:tracking-[-1.32px] xl:text-[58px] xl:leading-[55px] xl:tracking-[-2.32px] text-fontPrimary;
+    }
+
+    .typography-header-3 {
+        @apply font-StyreneA text-[26px] leading-[32px] tracking-[-0.52px] md:text-[34px] md:leading-[42px] md:tracking-[-1.02px] xl:text-[40px] xl:leading-[43px] xl:tracking-[-2px] text-fontPrimary;
+    }
+
+    .typography-header-4 {
+        @apply font-StyreneA text-[20px] leading-[28px] tracking-[-0.2px] md:text-[24px] md:leading-[32px] md:tracking-[-0.24px] xl:text-[32px] xl:leading-[44px] xl:tracking-[-0.32px] text-fontPrimary;
+    }
+
+    .typography-header-4-regular {
+        @apply font-StyreneA text-[20px] leading-[28px] tracking-[-0.2px] md:text-[24px] md:leading-[32px] md:tracking-[-0.24px] xl:text-[32px] xl:leading-[44px] xl:tracking-[-2px] text-fontPrimary;
+    }
+
+    .typography-header-5 {
+        @apply font-StyreneA text-[18px] leading-[24px] md:text-[19px] md:leading-[26px] xl:text-[22px] xl:leading-[30px] text-fontPrimary;
+    }
+
+    .typography-header-6 {
+        @apply font-StyreneA text-[16px] leading-[24px] text-fontPrimary;
+    }
+
+    .typography-body-l {
+        @apply font-MonaspaceNeon text-[16px] leading-[24px] tracking-[0.16px] md:text-[18px] md:leading-[26px] md:tracking-[0.18px] xl:text-[20px] xl:leading-[30px] xl:tracking-[0.2px] text-fontPrimary;
+    }
+
+    .typography-body-m {
+        @apply font-MonaspaceNeon text-[14px] leading-[22px] tracking-[0.28px] md:text-[16px] md:leading-[24px] md:tracking-[0.32px] xl:text-[17px] xl:leading-[24px] xl:tracking-[0.34px] text-fontPrimary;
+    }
+
+    .typography-body-s {
+        @apply font-MonaspaceNeon text-[12px] leading-[18px] tracking-[0.12px] md:text-[14px] md:leading-[20px] md:tracking-[0.56px] text-fontPrimary;
+    }
+
+    .typography-body-blog {
+        @apply font-MonaspaceNeon text-[15px] leading-[24px] tracking-[0.15px] md:text-[16px] md:leading-[26px] md:tracking-[0.16px] text-fontPrimary;
+    }
+
+    .typography-body-number {
+        @apply font-MonaspaceNeon text-[16px] leading-[25px] tracking-[0.96px] text-fontPrimary;
+    }
+
+    .typography-label {
+        @apply font-MonaspaceNeon text-[11px] leading-[16px] tracking-[0.66px] md:text-[12px] md:leading-[20px] md:tracking-[0.72px] text-fontPrimary;
+    }
+
+    .typography-button-2 {
+        @apply font-MonaspaceNeon text-[12px] leading-[18px] tracking-[0.72px] md:text-[15px] md:leading-[20px] md:tracking-[0.9px] text-fontPrimary;
+    }
+
+    .typography-mark {
+        @apply font-MonaspaceNeon text-[11px] leading-[13px] tracking-[0.44px] text-fontPrimary;
+    }
+
+    .typography-button {
+        @apply font-MonaspaceNeon text-[14px] tracking-[0.84px] md:text-[16px] leading-[20px] md:tracking-[0.96px] text-fontPrimary;
+    }
+
+    /* button style start */
+    .button-secondary {
+        @apply rounded-[100px] bg-fontSecondary border border-fontSecondary text-fontLight font-MonaspaceNeon;
+    }
+
+    .button-primary {
+        @apply rounded-[100px] bg-fontPrimary border border-fontPrimary text-fontLight font-MonaspaceNeon hover:bg-fontSecondary hover:border-fontSecondary transition-all ;
+    }
+
+    .button-success {
+        @apply rounded-[100px] bg-fontSuccess border border-fontSuccess text-fontLight font-MonaspaceNeon;
+    }
+
+    .button-danger {
+        @apply rounded-[100px] bg-fontLight border border-fontLight text-fontLight font-MonaspaceNeon;
+    }
+
+    .button-white {
+        @apply rounded-[100px] bg-fontLight border border-fontLight text-fontPrimary font-MonaspaceNeon;
+    }
+
+    .button-primary-outlined {
+        @apply rounded-[100px] text-fontPrimary font-MonaspaceNeon border border-fontPrimary transition-all hover:bg-fontPrimary hover:text-fontLight;
+    }
+
+    .button-success-outlined {
+        @apply rounded-[100px] text-fontSuccess font-MonaspaceNeon border border-fontSuccess transition-all hover:bg-fontSuccess hover:text-fontLight;
+    }
+
+    .button-danger-outlined {
+        @apply rounded-[100px] text-fontWrong font-MonaspaceNeon border border-fontWrong transition-all hover:bg-fontWrong hover:text-fontLight;
+    }
+
+    .button-size-default {
+        @apply py-[9px] px-4 text-[16px] leading-[18px];
+    }
+
+    .button-size-small {
+        @apply py-[7px] px-3 text-[14px] leading-[16px];
+    }
+
+    .button-size-large {
+        @apply py-[15px] px-6 text-[16px] leading-[18px];
+    }
+
+    .button-loading {
+        @apply cursor-not-allowed;
+    }
+
+    .button-disabled {
+        @apply cursor-not-allowed bg-fillLine border-fillLine/5 text-fontLight;
+    }
+
+    .button-disabled-outlined {
+        @apply cursor-not-allowed border border-fillLine text-fillLine bg-fontLight hover:bg-fontLight hover:text-fillLine;
+    }
+
+    /* flex global class start */
+    .flex-fill {
+        @apply flex flex-1;
+    }
+
+    .flex-center {
+        @apply flex items-center justify-center;
+    }
+
+    .flex-colCenter {
+        @apply flex items-center justify-center flex-col;
+    }
+
+    .flex-crossStart {
+        @apply flex items-start;
+    }
+
+    .flex-crossCenter {
+        @apply flex items-center;
+    }
+
+    .flex-mainStart {
+        @apply flex justify-start;
+    }
+
+    .flex-mainCenter {
+        @apply flex justify-center;
+    }
+
+    /* flex global class end */
+    .hover-border {
+        @apply border border-fontTertiary hover:border-white hover:outline-2 hover:outline-fontPrimary hover:outline transition-all cursor-pointer;
+    }
+}
+
+/* rebranding start */
+@font-face {
+    font-family: 'MonaspaceNeon';
+    src: url('./MonaspaceNeon.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
 
 @font-face {
-  font-family: 'SpaceMono';
-  src: url('../public/fonts/SpaceMono-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'SpaceMono';
-  src: url('../public/fonts/SpaceMono-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'SourceCodePro';
-  src: url('../public/fonts/SourceCodePro-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'SourceCodePro';
-  src: url('../public/fonts/SourceCodePro-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'MonaspaceNeon';
+    src: url('./MonaspaceNeon.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'IBMPlexMono';
-  src: url('../public/fonts/IBMPlexMono-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'IBMPlexMono';
-  src: url('../public/fonts/IBMPlexMono-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'MonaspaceNeon';
+    src: url('./MonaspaceNeon.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'SpaceGrotesk';
-  src: url('../public/fonts/SpaceGrotesk-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
+    font-family: 'StyreneA';
+    src: url('./Styrene A-Regular-Web.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
 }
+
 @font-face {
-  font-family: 'SpaceGrotesk';
-  src: url('../public/fonts/SpaceGrotesk-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'StyreneA';
+    src: url('./Styrene A-Medium-Web.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
 }
 
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: #aaa;
-}
-
-::-webkit-scrollbar-track:hover {
-  background-color: #f2f2f2;
-}
-
-::-webkit-scrollbar-corner {
-  background-color: transparent;
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-.fm-SpaceMono {
-  font-family: 'SpaceMono';
-}
-.fm-SourceCodePro {
-  font-family: 'SourceCodePro';
-}
-.fm-IBMPlexMono {
-  font-family: 'IBMPlexMono';
-}
-.fm-SpaceGrotesk {
-  font-family: 'SpaceGrotesk';
-}
-
-html,
 body {
-  font-family: 'SourceCodePro';
-  background: #ffffff;
+    overflow: hidden;
+    font-family: 'MonaspaceNeon';
 }
+
+body,
+html {
+    background-color: #f5f5ef;
+}
+
+.tableRowAfter {
+    position: relative;
+}
+
+.tableRowAfter:hover::after {
+    content: '';
+    width: 4px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #d43327;
+}
+
+/* pagination */
+.gaianet-pagination .MuiPaginationItem-root {
+    border: 1px solid #d2d2d2;
+    color: #322221;
+    background-color: #fff !important;
+}
+
+.gaianet-pagination .MuiPaginationItem-root.Mui-selected {
+    border: 1px solid #d43327;
+    color: #d43327;
+}
+
+.gaianet-pagination .MuiPaginationItem-ellipsis {
+    border: none;
+}
+
+.hiddenScrollBar::-webkit-scrollbar {
+    display: none;
+}
+
+.nodes-drawer .MuiModal-backdrop {
+    background: none;
+}
+
+/* copy node stepper */
+.copy-node-stepper .MuiSvgIcon-root {
+    color: #F5F5EF;
+    border: 1px solid #121314;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    background-color: #F5F5EF;
+}
+
+.copy-node-stepper .MuiStepIcon-text {
+    fill: #121314;
+    font-family: 'MonaspaceNeon';
+    font-size: 17px;
+}
+
+/* chat ui global css  */
 
 .inputPlaceholderSourceCodePro::placeholder {
-  font-family: 'SourceCodePro';
+    font-family: 'MonaspaceNeon';
 }
 
 .gaianet-tippy {
-  background-color: #fff;
-  border-radius: 8px;
-  max-width: 500px !important;
+    background-color: #f5f5ef;
+    border-radius: 8px;
+    max-width: 500px !important;
 }
+
 .gaianet-tippy > .tippy-content {
-  padding: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.nav-tippy {
+    background-color: none !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+}
+
+.nav-tippy > .tippy-content {
+    padding: 0;
+    background-color: #f5f5ef;
 }
 
 .charBg {
-  position: relative;
+    position: relative;
 }
+
 .charBg::after {
-  content:'';
-  width: 220px;
-  height: 158px;
-  background: url('../public/gaianet-opacity.png') no-repeat;
-  background-size: 100% 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
+    content: '';
+    width: 158px;
+    height: 158px;
+    background: url('/logo-opacity.png') no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 }
-.ReactMarkdown > ol, ul, menu {
-  list-style: revert;
-  padding: revert;
-  margin: revert;
+
+.ReactMarkdown > ol,
+.ReactMarkdown > ul,
+.ReactMarkdown > menu {
+    list-style: revert;
+    padding: revert;
+    margin: revert;
 }
+
 .ReactMarkdown pre {
-  max-width: 672px;
+    max-width: 672px;
 }
 
 @media (max-width: 720px) {
-  pre {
-    width: calc(100vw - 110px);
-  }
+    pre {
+        width: calc(100vw - 110px);
+    }
 }
 
 pre:has(div.codeblock) {
-  padding: 0;
+    padding: 0;
+}
+
+#chat-root {
+    font-family: 'SourceCodePro';
+}
+
+/* landing swiper  */
+.landing-swiper .swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: 20px !important;
+}
+
+.landing-swiper .swiper-pagination-bullet {
+    width: 10px !important;
+    height: 10px !important;
+    border: 1px solid #f5f5ef !important;
+    border-radius: 5px;
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+}
+
+.landing-swiper .swiper-pagination-bullet-active {
+    background: #f5f5ef !important;
 }
