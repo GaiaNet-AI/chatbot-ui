@@ -112,7 +112,8 @@ fetch('config_pub.json')
         val = data["chat"].split('/').pop();
         addToTable (key, val, 'nodeTable');
         key = "Model name for chat";
-	val = val.slice(0, -5);
+	// val = val.slice(0, -5);
+        val = data["chat_name"].split('/').pop();
 	addToTable (key, val, 'openaiTable');
 
         key = "System prompt";
@@ -123,7 +124,8 @@ fetch('config_pub.json')
         val = data["embedding"].split('/').pop();
         addToTable (key, val, 'nodeTable');
         key = "Model name for text embedding";
-	val = val.slice(0, -5);
+	// val = val.slice(0, -5);
+        val = data["embedding_name"].split('/').pop();
 	addToTable (key, val, 'openaiTable');
 
         key = "Knowledge base";
