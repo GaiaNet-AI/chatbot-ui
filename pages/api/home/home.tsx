@@ -1,5 +1,7 @@
 import {useEffect, useRef} from 'react';
 
+import Link from 'next/link';
+
 import {GetStaticProps} from 'next';
 import {useTranslation} from 'next-i18next';
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
@@ -337,9 +339,19 @@ const Home = ({}) => {
                 <link rel="icon" href="/favicon.ico" />
                 <link rel="icon" href="https://www.gaianet.ai/favicon.ico" />
             </Head>
-            <main
-                className={`overflow-hidden flex h-screen w-screen flex-col text-sm text-white dark:text-white light`}
+            <main id="chat-root"
+                className="overflow-hidden flex h-screen w-screen flex-col text-sm text-white dark:text-white light"
             >
+                <div
+                    className="w-full h-[46px] md:h-[96px] pl-[12px] pr-[16px] md:pl-[40px] md:pr-[40px] flex-crossCenter justify-between transition-all bg-fontLight">
+                    <Link href="/">
+                        <img
+                            className="w-[60px] md:w-[108px] cursor-pointer wow animate__animated animate__fadeIn"
+                            src='https://www.gaianet.ai/images/logo-dark.png'
+                            alt=""
+                        />
+                    </Link>
+                </div>
                 <div className="fixed top-[47px] w-full sm:hidden">
                     <Navbar
                         selectedConversation={selectedConversation}
@@ -347,7 +359,7 @@ const Home = ({}) => {
                     />
                 </div>
 
-                <div className="flex h-full w-full pt-[49px] sm:pt-0">
+                <div className="flex h-full w-full pt-[49px] sm:pt-0 border-t border-fillLine">
                     <Chatbar/>
 
                     <div className="flex flex-1">
