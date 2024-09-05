@@ -513,7 +513,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                 </div>
                 {!selectedConversation && (
                     <div className="mx-auto flex mt-[100px] w-[300px] flex-col justify-center sm:w-[600px]">
-                        <img src="/logo-big.png" alt="" className="w-[158px] h-[158px] mx-auto"/>
+                        <img src="./logo-big.png" alt="" className="w-[158px] h-[158px] mx-auto"/>
                         <div
                             className="mt-7 text-center text-[32px] leading-[44px] tracking-[-0.32px] font-[500] text-fontPrimary font-StyreneA ">
                             Welcome to Gaia AI Chat
