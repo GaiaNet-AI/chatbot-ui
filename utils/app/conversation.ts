@@ -27,5 +27,5 @@ export const saveConversation = (conversation: Conversation) => {
 };
 
 export const saveConversations = (conversations: Conversation[], subdomain: string | null | undefined) => {
-  localStorage.setItem(`conversationHistory_${subdomain}`, JSON.stringify(conversations));
+  localStorage.setItem(`conversationHistory`, JSON.stringify(conversations));
 };

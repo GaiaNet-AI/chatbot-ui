@@ -299,7 +299,7 @@ const Home = ({}) => {
     useEffect(() => {
         if (!selectedNode?.subdomain) return;
         const conversationHistory = localStorage.getItem(
-            `conversationHistory_${selectedNode?.subdomain}`
+            `conversationHistory`
         );
         const selectedConversation = localStorage.getItem("selectedConversation");
         if(selectedConversation){

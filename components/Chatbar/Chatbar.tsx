@@ -125,7 +125,7 @@ export const Chatbar = () => {
         homeDispatch({ field: 'conversations', value: [] });
         homeDispatch({ field: 'selectedConversation', value: null });
 
-        localStorage.removeItem(`conversationHistory_${selectedNode?.subdomain}`);
+        localStorage.removeItem(`conversationHistory`);
         localStorage.removeItem('selectedConversation');
 
         const updatedFolders = folders.filter((f) => f.type !== 'chat');
