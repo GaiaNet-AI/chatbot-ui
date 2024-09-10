@@ -3,6 +3,7 @@ import { Conversation } from '@/types/chat';
 export const updateConversation = (
   updatedConversation: Conversation,
   allConversations: Conversation[],
+  subdomain: string | null | undefined
 ) => {
   const updatedConversations = allConversations.map((c) => {
     if (c.id === updatedConversation.id) {
@@ -13,7 +14,7 @@ export const updateConversation = (
   });
 
   saveConversation(updatedConversation);
-  saveConversations(updatedConversations);
+  saveConversations(updatedConversations, subdomain);
 
   return {
     single: updatedConversation,
@@ -25,6 +26,6 @@ export const saveConversation = (conversation: Conversation) => {
   localStorage.setItem('selectedConversation', JSON.stringify(conversation));
 };
 
-export const saveConversations = (conversations: Conversation[]) => {
-  localStorage.setItem('conversationHistory', JSON.stringify(conversations));
+export const saveConversations = (conversations: Conversation[], subdomain: string | null | undefined) => {
+  localStorage.setItem(`conversationHistory`, JSON.stringify(conversations));
 };

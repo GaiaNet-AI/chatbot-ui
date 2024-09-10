@@ -119,7 +119,7 @@ export const SettingDialog: FC<Props> = ({ open, onClose }) => {
 
             <button
               type="button"
-              className="w-full px-4 leading-5 text-sm py-2 mt-8 border border-[#D43327] rounded-lg bg-[#D43327] text-white outline-none transition-all hover:text-[#D43327] hover:bg-white hover:border-[#D43327]"
+              className="w-full px-4 leading-5 text-sm py-2 mt-8 border border-[#1c1f23] rounded-lg bg-[#1c1f23] text-white outline-none transition-all hover:text-[#1c1f23] hover:bg-white hover:border-[#1c1f23]"
               onClick={() => {
                 handleSave();
                 onClose();

@@ -14,7 +14,7 @@ interface Props {
 
 export const ChatFolders = ({ searchTerm }: Props) => {
   const {
-    state: { folders, conversations },
+    state: { folders, conversations, selectedConversation },
     handleUpdateConversation,
   } = useContext(HomeContext);
 
@@ -36,7 +36,7 @@ export const ChatFolders = ({ searchTerm }: Props) => {
         .map((conversation, index) => {
           if (conversation.folderId === currentFolder.id) {
             return (
-              <div key={index} className="ml-5 gap-2 border-l pl-2">
+              <div key={index} className={"ml-5 gap-2 border-l pl-2 " + (conversation.id===selectedConversation?.id?"border-[#121314]" : "")}>
                 <ConversationComponent conversation={conversation} />
               </div>
             );
@@ -46,7 +46,7 @@ export const ChatFolders = ({ searchTerm }: Props) => {
   };
 
   return (
-    <div className="flex w-full flex-col pt-2">
+    <div className="flex w-full flex-col pt-1">
       {folders
         .filter((folder) => folder.type === 'chat')
         .sort((a, b) => a.name.localeCompare(b.name))

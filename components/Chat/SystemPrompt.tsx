@@ -1,21 +1,13 @@
-import { IconChevronDown } from '@tabler/icons-react';
+import {IconChevronDown} from '@tabler/icons-react';
 import Tippy from '@tippyjs/react';
-import {
-  FC,
-  KeyboardEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import {FC, KeyboardEvent, useCallback, useContext, useEffect, useRef, useState} from 'react';
 
-import { useTranslation } from 'next-i18next';
+import {useTranslation} from 'next-i18next';
 
-import { Conversation } from '@/types/chat';
-import { Prompt } from '@/types/prompt';
-
-import { PromptList } from './PromptList';
-import { VariableModal } from './VariableModal';
+import {Conversation} from '@/types/chat';
+import {Prompt} from '@/types/prompt';
+import {VariableModal} from './VariableModal';
+import HomeContext from "@/pages/api/home/home.context";
 
 interface Props {
   conversation: Conversation;
@@ -29,6 +21,9 @@ export const SystemPrompt: FC<Props> = ({
   onChangePrompt,
 }) => {
   const { t } = useTranslation('chat');
+  const {
+    state: { messageIsStreaming },
+  } = useContext(HomeContext);
 
   const [value, setValue] = useState<string>('');
   const [activePromptIndex, setActivePromptIndex] = useState(0);
@@ -48,17 +43,6 @@ export const SystemPrompt: FC<Props> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    const maxLength = conversation.model.maxLength;
-
-    if (value.length > maxLength) {
-      alert(
-        t(
-          `Prompt limit is {{maxLength}} characters. You have entered {{valueLength}} characters.`,
-          { maxLength, valueLength: value.length },
-        ),
-      );
-      return;
-    }
     setValue(value);
   };
 
@@ -77,8 +61,7 @@ export const SystemPrompt: FC<Props> = ({
   const handleInitModal = () => {
     const selectedPrompt = filteredPrompts[activePromptIndex];
     setValue((prevVal) => {
-      const newContent = prevVal?.replace(/\/\w*$/, selectedPrompt.content);
-      return newContent;
+      return prevVal?.replace(/\/\w*$/, selectedPrompt.content);
     });
     handlePromptSelect(selectedPrompt);
     setShowPromptList(false);
@@ -196,121 +179,59 @@ export const SystemPrompt: FC<Props> = ({
 
   const SystemPromptTooltipContent = () => {
     return (
-      <div className="flex flex-col w-[285px] p-4 bg-white border border-black rounded-lg ">
-        <p className="text-black text-[13px] font-bold mb-4">
-          {t('System Prompt')}
-        </p>
-        <textarea
-          ref={textareaRef}
-          className="w-full resize-none min-h-[150px] max-h-[150px] outline-none rounded-lg border text-xs border-[rgba(0,0,0,.0.15)] bg-transparent p-[10px] text-black "
-          placeholder={
-            t(`Enter a prompt or type "/" to select a prompt...`) || ''
-          }
-          value={value || ''}
-          rows={3}
-          onChange={handleChange}
-          // onKeyDown={handleKeyDown}
-        />
-        {error && (
-          <div className="text-xs text-[#D43327] mt-1">
-            The prompt of this model cannot be empty!
-          </div>
-        )}
-        <div className="flex items-center justify-end mt-4 gap-3">
-          {/* <div
-            className="inline-flex px-3 py-[6px] capitalize rounded border border-[rgba(0,0,0,.08)] cursor-pointer fm-SpaceMono text-xs text-[#322221] leading-5"
-            onClick={() => {
-              if (tippyInstance) tippyInstance.hide();
-            }}
-          >
-            default
-          </div> */}
-          <div
-            className="inline-flex px-3 py-[6px] capitalize rounded border border-[#D43327] cursor-pointer fm-SpaceMono text-xs text-white bg-[#D43327] leading-5"
-            onClick={() => handelSave()}
-          >
-            save
+        <div className="flex flex-col w-[285px] p-3 bg-fontLight border border-fontPrimary rounded-[8px] ">
+          <p className="text-black font-StyreneA text-[16px] leading-[24px] tracking-[-0.64px] font-bold mb-4">System
+            Prompt</p>
+          <textarea
+              ref={textareaRef}
+              className="w-full resize-none min-h-[150px] max-h-[150px] outline-none rounded-[6px] border text-[14px] leading-[20px] tracking-[0.56px] font-MonaspaceNeon border-fillLine bg-transparent p-[10px] text-fontPrimary placeholder:text-fontTertiary "
+              placeholder='Enter a prompt or type "/" to select a prompt...'
+              value={value || ''}
+              rows={3}
+              onChange={handleChange}
+          />
+          {error && (
+              <div className="text-xs text-[#D43327] mt-1">
+                The prompt of this model cannot be empty!
+              </div>
+          )}
+          <div className="flex items-center justify-end mt-4 gap-3">
+            <div
+                className="inline-flex px-4 py-[7px] uppercase rounded-[100px] border border-fontPrimary cursor-pointer font-MonaspaceNeon text-[15px] tracking-[0.9px] text-fontLight bg-fontPrimary leading-5"
+                onClick={() => handelSave()}
+            >
+              save
+            </div>
           </div>
         </div>
-      </div>
     );
   };
 
   return (
-    <>
-      <Tippy
-        content={SystemPromptTooltipContent()}
-        placement="bottom-end"
-        trigger="click"
-        interactive
-        arrow={false}
-        onCreate={(instance) => setTippyInstance(instance)}
-        className="gaianet-tippy"
-      >
-        <div className="inline-flex items-center justify-center gap-3 rounded-lg px-3 h-[44px] text-[13px] bg-white text-black border border-[rgba(0, 0, 0, 0.08)] cursor-pointer hover:border-black transition-all">
-          <p>{t('System Prompt')}</p>
-          <IconChevronDown size="18" color="#C0C0C0" />
-        </div>
-      </Tippy>
-      {isModalVisible && (
-        <VariableModal
-          prompt={prompts[activePromptIndex]}
-          variables={variables}
-          onSubmit={handleSubmit}
-          onClose={() => setIsModalVisible(false)}
-        />
-      )}
-    </>
-
-    //     <div className="flex flex-col">
-    //         <label className="mb-2 text-left text-neutral-700 dark:text-neutral-400">
-    //             {t('System Prompt')}
-    //         </label>
-    //         <textarea
-    //             ref={textareaRef}
-    //             className="w-full rounded-lg border border-neutral-200 bg-transparent px-4 py-3 text-neutral-900 dark:border-neutral-600 dark:text-neutral-100"
-    //             style={{
-    //                 borderColor: `${(!value && conversation.promptState === 1) ? "red" : ""}`,
-    //                 resize: 'none',
-    //                 bottom: `${textareaRef?.current?.scrollHeight}px`,
-    //                 maxHeight: '300px',
-    //                 overflow: `${
-    //                     textareaRef.current && textareaRef.current.scrollHeight > 400
-    //                         ? 'auto'
-    //                         : 'hidden'
-    //                 }`,
-    //             }}
-    //             placeholder={
-    //                 t(`Enter a prompt or type "/" to select a prompt...`) || ''
-    //             }
-    //             value={value || ''}
-    //             rows={1}
-    //             onChange={handleChange}
-    //             onKeyDown={handleKeyDown}
-    //         />
-    //         {(!value && conversation.promptState === 1) &&
-    //             <div style={{color: "red", marginTop: "2px"}}>The prompt of this model cannot be empty!</div>}
-
-    //         {showPromptList && filteredPrompts.length > 0 && (
-    //             <div>
-    //                 <PromptList
-    //                     activePromptIndex={activePromptIndex}
-    //                     prompts={filteredPrompts}
-    //                     onSelect={handleInitModal}
-    //                     onMouseOver={setActivePromptIndex}
-    //                     promptListRef={promptListRef}
-    //                 />
-    //             </div>
-    //         )}
-
-    // {isModalVisible && (
-    //     <VariableModal
-    //         prompt={prompts[activePromptIndex]}
-    //         variables={variables}
-    //         onSubmit={handleSubmit}
-    //         onClose={() => setIsModalVisible(false)}
-    //     />
-    // )}
-    //     </div>
+      <>
+        <Tippy
+            content={SystemPromptTooltipContent()}
+            placement="bottom-end"
+            trigger="click"
+            interactive
+            disabled={messageIsStreaming}
+            arrow={false}
+            onCreate={(instance) => setTippyInstance(instance)}
+            className="gaianet-tippy"
+        >
+          <div className="inline-flex items-center justify-center gap-3 rounded-[8px] px-3 h-[46px] border border-fillLine cursor-pointer hover:border-fontPrimary hover:shadow-[0_0_0_3px_rgba(102,16,242,0.15)] transition-all">
+            <p className="text-[12px] leading-[20px] tracking-[0.72px] font-MonaspaceNeon text-black">System Prompt</p>
+            <IconChevronDown size="18" color="#A4A3A3" />
+          </div>
+        </Tippy>
+        {isModalVisible && (
+            <VariableModal
+                prompt={prompts[activePromptIndex]}
+                variables={variables}
+                onSubmit={handleSubmit}
+                onClose={() => setIsModalVisible(false)}
+            />
+        )}
+      </>
   );
 };

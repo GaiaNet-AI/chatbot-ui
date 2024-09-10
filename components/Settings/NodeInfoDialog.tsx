@@ -18,23 +18,29 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const {
-    state: { api },
+    state: { selectedNode },
+    dispatch,
   } = useContext(HomeContext);
 
   useEffect(() => {
-    if (!open) return;
-    setLoading(true);
-    fetch(`${api}/config_pub.json`)
-      .then((response) => response.json())
-      .then((data) => {
-        setNodeInfo(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error('Error fetching JSON:', error);
-      });
-  }, [api, open]);
+    if (!selectedNode?.subdomain) return;
+    fetch(`/config_pub.json`)
+        .then((response) => response.json())
+        .then((data) => {
+          setNodeInfo(data);
+          if (data?.system_prompt) {
+            dispatch({
+              field: 'selectedNodeSystemPrompt',
+              value: data?.system_prompt,
+            });
+          }
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching JSON:', error);
+          setLoading(false);
+        });
+  }, [dispatch, selectedNode]);
 
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {

@@ -1,4 +1,4 @@
-import {Message} from '@/types/chat';
+import {Message,SelectedNode} from '@/types/chat';
 import {OpenAIModel} from '@/types/openai';
 
 export class OpenAIError extends Error {
@@ -16,7 +16,7 @@ export class OpenAIError extends Error {
 }
 
 export const ChatStream = async (
-    model: OpenAIModel,
+    node: SelectedNode,
     systemPrompt: string,
     temperature: number,
     api: string,
@@ -24,7 +24,7 @@ export const ChatStream = async (
     messages: Message[]
 ) => {
     let finalMessage
-    let queryUrl = `${api}/v1/chat/completions`;
+    let queryUrl = `/v1/chat/completions`;
     if (systemPrompt) {
         finalMessage = [
             {
@@ -43,7 +43,7 @@ export const ChatStream = async (
         },
         method: 'POST',
         body: JSON.stringify({
-            model: model.id,
+            model: node.name,
             messages: finalMessage,
             stream: true,
             stream_options: {
@@ -55,21 +55,21 @@ export const ChatStream = async (
 }
 
 export const ChatWithoutStream = async (
-    model: OpenAIModel,
+    node: SelectedNode,
     systemPrompt: string,
     temperature: number,
     api: string,
     key: string,
     messages: Message[]
 ) => {
-    let queryUrl = `${api}/v1/chat/completions`;
+    let queryUrl = `/v1/chat/completions`;
     const res = await fetch(queryUrl, {
         headers: {
             'Content-Type': 'application/json',
         },
         method: 'POST',
         body: JSON.stringify({
-            model: model.id,
+            model: node.name,
             messages: [
                 {
                     role: 'system',

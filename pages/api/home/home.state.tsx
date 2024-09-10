@@ -1,4 +1,4 @@
-import { Conversation, Message } from '@/types/chat';
+import { Conversation, Message, SelectedNode } from '@/types/chat';
 import { ErrorMessage } from '@/types/error';
 import { FolderInterface } from '@/types/folder';
 import { OpenAIModel, OpenAIModelID } from '@/types/openai';
@@ -27,12 +27,12 @@ export interface HomeInitialState {
   messageError: boolean;
   searchTerm: string;
   defaultModelId: OpenAIModelID | undefined;
-  serverSideApiKeyIsSet: boolean;
-  serverSidePluginKeysSet: boolean;
+  selectedNode: SelectedNode | undefined;
+  selectedNodeSystemPrompt: string;
 }
 
 export const initialState: HomeInitialState = {
-  api: process.env.NEXT_PUBLIC_API_URL || "",
+  api: process.env.NEXT_PUBLIC_API_URL || '',
   apiKey: '',
   loading: false,
   pluginKeys: [],
@@ -53,6 +53,6 @@ export const initialState: HomeInitialState = {
   messageError: false,
   searchTerm: '',
   defaultModelId: undefined,
-  serverSideApiKeyIsSet: false,
-  serverSidePluginKeysSet: false,
+  selectedNode: undefined,
+  selectedNodeSystemPrompt: '',
 };
