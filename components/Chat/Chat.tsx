@@ -144,7 +144,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
 
     const handleSend = useCallback(
         async (message: Message, deleteCount = 0, plugin: Plugin | null = null) => {
-            if (selectedConversation) {
+            if (selectedConversation && selectedNode) {
                 let sandMessages: Message[];
                 if (deleteCount) {
                     const updatedMessages = [...selectedConversation.messages];
@@ -201,7 +201,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                 homeDispatch({field: 'loading', value: true});
                 homeDispatch({field: 'messageIsStreaming', value: true});
                 const chatBody: ChatBody = {
-                    node: updatedConversation.node,
+                    node: selectedNode,
                     messages: sandMessages,
                     key: apiKey,
                     prompt: updatedConversation.prompt,
@@ -573,8 +573,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                     </div>
                 )}
             </div>
-            {(selectedConversation?.promptState !== 1 ||
-                selectedConversation?.prompt !== '') && (
+            {(selectedConversation && (selectedConversation.promptState !== 1 || selectedConversation.prompt !== '')) && (
                 <ChatInput
                     maxImg={maxImg - imageCount}
                     stopConversationRef={stopConversationRef}
