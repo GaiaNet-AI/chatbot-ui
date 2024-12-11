@@ -21,7 +21,8 @@ export const ChatStream = async (
     temperature: number,
     api: string,
     key: string,
-    messages: Message[]
+    messages: Message[],
+    abortController: AbortController | null
 ) => {
     let finalMessage
     let queryUrl = `/v1/chat/completions`;
@@ -50,6 +51,7 @@ export const ChatStream = async (
                 "include_usage": true
             }
         }),
+        signal: abortController ? abortController.signal : null
     });
     return res.body;
 }

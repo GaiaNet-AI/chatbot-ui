@@ -29,6 +29,7 @@ export interface HomeInitialState {
   defaultModelId: OpenAIModelID | undefined;
   selectedNode: SelectedNode | undefined;
   selectedNodeSystemPrompt: string;
+  controller: AbortController | null;
 }
 
 export const initialState: HomeInitialState = {
@@ -55,4 +56,5 @@ export const initialState: HomeInitialState = {
   defaultModelId: undefined,
   selectedNode: undefined,
   selectedNodeSystemPrompt: '',
+  controller: null
 };
