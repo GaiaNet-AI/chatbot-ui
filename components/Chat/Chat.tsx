@@ -227,6 +227,8 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                     }
                     if (isStream) {
                         queryDoneRef.current = false;
+                        const abortController = new AbortController();
+                        homeDispatch({field: 'controller', value: abortController});
                         let response: ReadableStream<Uint8Array> | null = await ChatStream(
                             node,
                             promptToSend,
@@ -234,6 +236,7 @@ export const Chat = memo(({stopConversationRef}: Props) => {
                             api,
                             key,
                             messagesToSend,
+                            abortController
                         );
                         if (response) {
                             let notFinishData = '';

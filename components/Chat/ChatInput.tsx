@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import {IconArrowDown, IconBolt,} from '@tabler/icons-react';
+import {IconArrowDown, IconBolt, IconSend} from '@tabler/icons-react';
 import React, {KeyboardEvent, MutableRefObject, useCallback, useContext, useEffect, useRef, useState,} from 'react';
 
 import {useTranslation} from 'next-i18next';
@@ -35,7 +35,7 @@ export const ChatInput = ({
     const {t} = useTranslation('chat');
 
     const {
-        state: {selectedConversation, messageIsStreaming, prompts},
+        state: {selectedConversation, controller, messageIsStreaming, prompts},
 
         dispatch: homeDispatch,
     } = useContext(HomeContext);
@@ -63,6 +63,13 @@ export const ChatInput = ({
         setContent(value);
         updatePromptListVisibility(value);
     };
+
+    const stopSend = () => {
+        if (messageIsStreaming && controller) {
+            controller.abort();
+            homeDispatch({field: 'messageIsStreaming', value: false});
+        }
+    }
 
     const handleSend = () => {
         let thisList: string[] = imageSrcList;
@@ -431,33 +438,28 @@ export const ChatInput = ({
                         />
                     </div>
                     <button
-                        className="absolute right-2 top-2 rounded-sm p-1 inline-flex items-center gap-2 cursor-pointer"
-                        onClick={handleSend}
+                        className="absolute right-2 top-2 p-1 inline-flex items-center gap-2 cursor-pointer bg-fontPrimary rounded-2xl"
+                        onClick={messageIsStreaming ? stopSend : handleSend}
                     >
                         {messageIsStreaming ? (
-                            <div className="h-4 w-4 animate-spin rounded-full border-t-2 border-neutral-800 flex justify-center items-center"></div>
+                            <>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                     fill="white"
+                                     className="icon icon-tabler icons-tabler-filled icon-tabler-circle-rectangle">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <path
+                                        d="M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m0 5.66h-10a1 1 0 0 0 -1 1v4a1 1 0 0 0 1 1h10a1 1 0 0 0 1 -1v-4a1 1 0 0 0 -1 -1"/>
+                                </svg>
+                                <p style={{color: "white"}}
+                                   className="text-[15px] leading-[20px] tracking-[0.9px] font-MonaspaceNeon text-fontPrimary uppercase">
+                                    Stop
+                                </p>
+                            </>
                         ) : (
                             <>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 16 16"
-                                    fill="none"
-                                >
-                                    <g clipPath="url(#clip0_4682_3886)">
-                                        <path
-                                            d="M14.0001 5.5V8.4C14.0001 8.9 13.6001 9.4 13.0001 9.4L4.00015 9.5V6.9C4.00015 6.6 3.60015 6.4 3.40015 6.6L0.100146 10.2C0.000146488 10.4 0.000146488 10.6 0.100146 10.8L3.40015 14.4C3.60015 14.6 4.00015 14.5 4.00015 14.1V11.5L13.0001 11.4C14.6001 11.4 16.0001 10 16.0001 8.4V5.5H14.0001Z"
-                                            fill="#121314"
-                                        />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_4682_3886">
-                                            <rect width="16" height="16" fill="white"/>
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                                <p className="text-[15px] leading-[20px] tracking-[0.9px] font-MonaspaceNeon text-fontPrimary uppercase">
+                                <IconSend color="white" size={18}/>
+                                <p style={{color: "white"}}
+                                   className="text-[15px] leading-[20px] tracking-[0.9px] font-MonaspaceNeon text-fontPrimary uppercase">
                                     Send
                                 </p>
                             </>
@@ -466,7 +468,7 @@ export const ChatInput = ({
 
                     {showScrollDownButton && (
                         <div className="absolute bottom-12 right-0 lg:bottom-0 lg:-right-10">
-                            <button
+                        <button
                                 className="flex h-7 w-7 items-center justify-center rounded-full bg-fontPrimary text-fontLight outline-none "
                                 onClick={onScrollDownClick}
                             >
