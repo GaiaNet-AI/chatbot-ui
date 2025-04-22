@@ -1,90 +1,96 @@
-import {Message,SelectedNode} from '@/types/chat';
-import {OpenAIModel} from '@/types/openai';
+import { Message, SelectedNode } from '@/types/chat';
+import { OpenAIModel } from '@/types/openai';
+
+import { baseURL } from '@/pages/api/models';
 
 export class OpenAIError extends Error {
-    type: string;
-    param: string;
-    code: string;
+  type: string;
+  param: string;
+  code: string;
 
-    constructor(message: string, type: string, param: string, code: string) {
-        super(message);
-        this.name = 'OpenAIError';
-        this.type = type;
-        this.param = param;
-        this.code = code;
-    }
+  constructor(message: string, type: string, param: string, code: string) {
+    super(message);
+    this.name = 'OpenAIError';
+    this.type = type;
+    this.param = param;
+    this.code = code;
+  }
 }
 
 export const ChatStream = async (
-    node: SelectedNode,
-    systemPrompt: string,
-    temperature: number,
-    api: string,
-    key: string,
-    messages: Message[],
-    abortController: AbortController | null
+  node: SelectedNode,
+  systemPrompt: string,
+  temperature: number,
+  api: string,
+  key: string,
+  messages: Message[],
+  abortController: AbortController | null,
 ) => {
-    let finalMessage
-    let queryUrl = `/v1/chat/completions`;
-    if (systemPrompt) {
-        finalMessage = [
-            {
-                role: 'system',
-                content: systemPrompt,
-            },
-            ...messages
-        ]
-    } else {
-        finalMessage = messages;
-    }
-    const res = await fetch(queryUrl, {
-        headers: {
-            'accept': "*/*",
-            'Content-Type': "application/json",
-            Authorization: `Bearer ${key ? key : process.env.NEXT_PUBLIC_OPENAI_API_KEY}`
-        },
-        method: 'POST',
-        body: JSON.stringify({
-            model: node.name,
-            messages: finalMessage,
-            stream: true,
-            stream_options: {
-                "include_usage": true
-            }
-        }),
-        signal: abortController ? abortController.signal : null
-    });
-    return res.body;
-}
+  let finalMessage;
+  let queryUrl = `${baseURL}/v1/chat/completions`;
+  if (systemPrompt) {
+    finalMessage = [
+      {
+        role: 'system',
+        content: systemPrompt,
+      },
+      ...messages,
+    ];
+  } else {
+    finalMessage = messages;
+  }
+  const res = await fetch(queryUrl, {
+    headers: {
+      accept: '*/*',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${
+        key ? key : process.env.NEXT_PUBLIC_OPENAI_API_KEY
+      }`,
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      model: node.name,
+      messages: finalMessage,
+      stream: true,
+      stream_options: {
+        include_usage: true,
+      },
+    }),
+    signal: abortController ? abortController.signal : null,
+  });
+  return res.body;
+};
 
 export const ChatWithoutStream = async (
-    node: SelectedNode,
-    systemPrompt: string,
-    temperature: number,
-    api: string,
-    key: string,
-    messages: Message[]
+  node: SelectedNode,
+  systemPrompt: string,
+  temperature: number,
+  api: string,
+  key: string,
+  messages: Message[],
 ) => {
-    let queryUrl = `/v1/chat/completions`;
-    const res = await fetch(queryUrl, {
-        headers: {
-            'accept': "*/*",
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${key ? key : process.env.NEXT_PUBLIC_OPENAI_API_KEY}`
+  let queryUrl = `${baseURL}/v1/chat/completions`;
+  const res = await fetch(queryUrl, {
+    headers: {
+      accept: '*/*',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${
+        key ? key : process.env.NEXT_PUBLIC_OPENAI_API_KEY
+      }`,
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      model: node.name,
+      messages: [
+        {
+          role: 'system',
+          content: systemPrompt,
         },
-        method: 'POST',
-        body: JSON.stringify({
-            model: node.name,
-            messages: [
-                {
-                    role: 'system',
-                    content: systemPrompt,
-                },
-                ...messages,
-            ],
-            stream: false
-        }),
-    });
+        ...messages,
+      ],
+      stream: false,
+    }),
+  });
 
-    return await res.json();
+  return await res.json();
 };
