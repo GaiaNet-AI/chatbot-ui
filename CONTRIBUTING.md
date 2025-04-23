@@ -1,45 +1,85 @@
-# Contributing Guidelines
+# 🛠️ Contributing to Chatbot UI
 
-**Welcome to Chatbot UI!**
+Thank you for your interest in contributing to **Chatbot UI**!  
+We’re excited to build this together with the community.
 
-We appreciate your interest in contributing to our project.
+Before getting started, please read through the guidelines below to ensure a smooth contribution process.
 
-Before you get started, please read our guidelines for contributing.
+---
 
-## Types of Contributions
+## What You Can Contribute
 
-We welcome the following types of contributions:
+We welcome all kinds of contributions, including:
 
-- Bug fixes
-- New features
-- Documentation improvements
-- Code optimizations
-- Translations
-- Tests
+- 🐛 Bug fixes  
+- ✨ New features or enhancements  
+- ⚙️ Code refactoring or optimizations  
+- 🌍 Translations for internationalization (i18n)  
+- 🧪 Additional tests or test improvements  
 
-## Getting Started
+---
 
-To get started, fork the project on GitHub and clone it locally on your machine. Then, create a new branch to work on your changes.
+## 🚀 Getting Started
 
-```
-git clone https://github.com/mckaywrigley/chatbot-ui.git
-cd chatbot-ui
-git checkout -b my-branch-name
+1. **Fork** the repository.
+2. **Clone** your fork:
 
-```
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/chatbot-ui.git
+   cd chatbot-ui
+   ```
 
-Before submitting your pull request, please make sure your changes pass our automated tests and adhere to our code style guidelines.
+3. **Create a new branch**:
 
-## Pull Request Process
+   ```bash
+   git checkout -b feature/my-feature-name
+   ```
 
-1. Fork the project on GitHub.
-2. Clone your forked repository locally on your machine.
-3. Create a new branch from the main branch.
-4. Make your changes on the new branch.
-5. Ensure that your changes adhere to our code style guidelines and pass our automated tests.
-6. Commit your changes and push them to your forked repository.
-7. Submit a pull request to the main branch of the main repository.
+4. **Install dependencies** and start the dev server:
 
-## Contact
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-If you have any questions or need help getting started, feel free to reach out to me on [Twitter](https://twitter.com/mckaywrigley).
+5. Make your changes.
+
+---
+
+## Before Submitting
+
+Make sure to:
+
+- Follow the project’s **code style** and structure.
+- Run any **tests or linters** (if available).
+- Keep your **commits focused** and descriptive.
+- **Pull in the latest changes** from `main` to avoid conflicts.
+
+---
+
+## Submitting a Pull Request
+
+1. Push your changes to your fork:
+
+   ```bash
+   git push origin feature/my-feature-name
+   ```
+
+2. Open a **Pull Request** against the `main` branch of the upstream repo.
+
+3. Fill out the PR template, describing your changes clearly and linking to any relevant issues.
+
+---
+
+## Community & Help
+
+Need help or have a question? Join our [Telegram Builder Group](https://t.me/+a0bJInD5lsYxNDJl) to chat with other contributors.
+
+You can also reach out on the [Telegram builder group](https://t.me/+a0bJInD5lsYxNDJl) to connect with the community and ask questions.
+
+---
+
+## Code of Conduct
+
+Please review our [Code of Conduct](https://github.com/GaiaNet-AI/chatbot-ui/blob/main/.github/CODE_OF_CONDUCT.md) to ensure a welcoming and respectful environment for everyone.
+

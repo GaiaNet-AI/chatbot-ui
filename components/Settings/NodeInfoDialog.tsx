@@ -3,6 +3,7 @@ import { IconX } from '@tabler/icons-react';
 import { FC, useContext, useEffect, useRef, useState } from 'react';
 
 import HomeContext from '@/pages/api/home/home.context';
+import { baseURL } from '@/pages/api/models';
 
 import { Loading } from '@/components/Loading';
 
@@ -24,22 +25,22 @@ export const NodeInfoDialog: FC<Props> = ({ open, onClose }) => {
 
   useEffect(() => {
     if (!selectedNode?.subdomain) return;
-    fetch(`/config_pub.json`)
-        .then((response) => response.json())
-        .then((data) => {
-          setNodeInfo(data);
-          if (data?.system_prompt) {
-            dispatch({
-              field: 'selectedNodeSystemPrompt',
-              value: data?.system_prompt,
-            });
-          }
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching JSON:', error);
-          setLoading(false);
-        });
+    fetch(`${baseURL}/config_pub.json`)
+      .then((response) => response.json())
+      .then((data) => {
+        setNodeInfo(data);
+        if (data?.system_prompt) {
+          dispatch({
+            field: 'selectedNodeSystemPrompt',
+            value: data?.system_prompt,
+          });
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching JSON:', error);
+        setLoading(false);
+      });
   }, [dispatch, selectedNode]);
 
   useEffect(() => {
